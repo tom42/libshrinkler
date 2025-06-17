@@ -24,3 +24,31 @@ if(libshrinkler_BUILD_TESTING)
   include(VtgTesting)
   vtg_testing_setup_catch2(3.4.0)
 endif()
+
+
+################################################################################
+# Build our own code
+################################################################################
+
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+if(libshrinkler_ENABLE_WARNINGS)
+  set(vtg_ENABLE_WARNINGS ON)
+endif()
+include(VtgEnableWarnings)
+
+# TODO: add subdirectories here (src, test)
+
+
+################################################################################
+# Add custom targets (reuse lint etc.)
+################################################################################
+
+if(PROJECT_IS_TOP_LEVEL)
+  add_custom_target(
+    reuse-lint
+    COMMAND reuse lint
+    WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}")
+endif()
