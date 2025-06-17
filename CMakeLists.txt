@@ -40,6 +40,7 @@ endif()
 include(VtgEnableWarnings)
 
 # TODO: add subdirectories here (src, test)
+add_subdirectory(src)
 
 
 ################################################################################
