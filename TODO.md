@@ -5,6 +5,8 @@ SPDX-License-Identifier: MIT
 
 # TODO
 * Set up source tree
+  * Honor all the options added to CMakeLists.txt
+  * Add CMakePresets.json, fix cache variables to match options of libshrinkler
 * Choose license
   * Shrinkler-license for shrinkler code
   * MIT for our code? Or shrinkler for everything? Is probably simpler since we probably need to modify shrinkler code
