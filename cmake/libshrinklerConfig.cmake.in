@@ -1,0 +1,7 @@
+# SPDX-FileCopyrightText: 2025 Thomas Mathys
+# SPDX-License-Identifier: MIT
+
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/libshrinklerTargets.cmake")
+check_required_components("@PROJECT_NAME@")

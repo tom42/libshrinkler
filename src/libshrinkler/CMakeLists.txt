@@ -13,4 +13,6 @@ target_sources(libshrinkler ${libshrinkler_sources})
 target_compile_features(libshrinkler PUBLIC cxx_std_23)
 vtg_target_enable_warnings(libshrinkler)
 
-# TODO: add install target here
+if(libshrinkler_INSTALL_STATIC_LIBRARY)
+  include(InstallLibshrinkler)
+endif()
