@@ -5,4 +5,10 @@ export module libshrinkler;
 
 namespace libshrinkler
 {
+
+export inline int test()
+{
+    return 6502;
+}
+
 }
