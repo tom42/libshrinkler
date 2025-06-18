@@ -2,3 +2,7 @@
 // SPDX-License-Identifier: MIT
 
 export module libshrinkler;
+
+namespace libshrinkler
+{
+}

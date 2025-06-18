@@ -7,7 +7,6 @@ set(
   libshrinkler.cppm
   PRIVATE)
 
-# TODO: is it called libshrinkler or just shrinkler? (also source files, module name, namespace)
 add_library(libshrinkler)
 target_sources(libshrinkler ${libshrinkler_sources})
 target_compile_features(libshrinkler PUBLIC cxx_std_23)
