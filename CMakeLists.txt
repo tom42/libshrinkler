@@ -39,8 +39,10 @@ if(libshrinkler_ENABLE_WARNINGS)
 endif()
 include(VtgEnableWarnings)
 
-# TODO: add subdirectories here (src, test)
 add_subdirectory(src)
+if(libshrinkler_BUILD_TESTING)
+  add_subdirectory(test)
+endif()
 
 
 ################################################################################
