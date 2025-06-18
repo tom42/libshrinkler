@@ -1,4 +1,16 @@
 # SPDX-FileCopyrightText: 2025 Thomas Mathys
 # SPDX-License-Identifier: MIT
 
-# TODO: add library here
+set(
+  libshrinkler_sources
+  PUBLIC FILE_SET CXX_MODULES FILES
+  libshrinkler.cppm
+  PRIVATE)
+
+# TODO: is it called libshrinkler or just shrinkler? (also source files, module name, namespace)
+add_library(libshrinkler)
+target_sources(libshrinkler ${libshrinkler_sources})
+target_compile_features(libshrinkler PUBLIC cxx_std_23)
+vtg_target_enable_warnings(libshrinkler)
+
+# TODO: add install target here
