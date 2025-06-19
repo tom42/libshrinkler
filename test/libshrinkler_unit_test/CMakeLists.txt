@@ -1,4 +1,9 @@
 # SPDX-FileCopyrightText: 2025 Thomas Mathys
 # SPDX-License-Identifier: MIT
 
-# TODO: add unit test here
+add_executable(
+  libshrinkler_unit_test
+  testthetest.cpp)
+vtg_target_enable_warnings(libshrinkler_unit_test)
+target_link_libraries(libshrinkler_unit_test PRIVATE libshrinkler Catch2::Catch2WithMain)
+catch_discover_tests(libshrinkler_unit_test)
