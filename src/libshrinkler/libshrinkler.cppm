@@ -21,6 +21,8 @@ public:
 
     bool parity_context() const { return m_parity_context; }
 
+    void parity_context(bool parity_context);
+
     int references() const { return m_references; }
 
     int iterations() const { return m_iterations; }

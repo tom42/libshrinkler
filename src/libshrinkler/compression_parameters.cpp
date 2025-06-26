@@ -21,4 +21,9 @@ void compression_parameters::verbose(bool verbose)
     m_verbose = verbose;
 }
 
+void compression_parameters::parity_context(bool parity_context)
+{
+    m_parity_context = parity_context;
+}
+
 }
