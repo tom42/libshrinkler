@@ -6,7 +6,8 @@ export module libshrinkler;
 namespace libshrinkler
 {
 
-export inline constexpr int default_preset = 3;
+inline constexpr int default_preset = 3;
+inline constexpr int default_references = 100000;
 
 export class compression_parameters final
 {
@@ -47,11 +48,10 @@ public:
 
     void skip_length(int skip_length);
 
-    // TODO: once it builds this needs a test
 private:
     bool m_verbose = false;
     bool m_parity_context = true;
-    int m_references = 100000; // TODO: constant?
+    int m_references = default_references;
     int m_iterations;
     int m_length_margin;
     int m_same_length;
