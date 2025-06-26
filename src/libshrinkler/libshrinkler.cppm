@@ -6,11 +6,12 @@ export module libshrinkler;
 namespace libshrinkler
 {
 
+export inline constexpr int default_preset = 3;
+
 export class compression_parameters final
 {
 public:
-    // TODO: have constant for default preset?
-    explicit compression_parameters(int preset = 3);
+    explicit compression_parameters(int preset = default_preset);
 
     void preset(int preset);
 
@@ -32,8 +33,6 @@ public:
 
     // TODO: once it builds this needs a test
     // TODO: add setters for all fields (range checks?(
-    // TODO: add constructor or factory method taking an optional preset number (what is it? 2? 3?)
-
 private:
     bool m_verbose = false;
     bool m_parity_context = true;
