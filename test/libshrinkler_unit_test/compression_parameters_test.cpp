@@ -26,7 +26,16 @@ TEST_CASE("compression_parameters_test")
 
     SECTION("construct_with_preset_9")
     {
-        CHECK(false);
+        const libshrinkler::compression_parameters parameters(9);
+
+        CHECK(parameters.parity_context() == true);
+        CHECK(parameters.iterations() == 9);
+        CHECK(parameters.length_margin() == 9);
+        CHECK(parameters.same_length() == 90);
+        CHECK(parameters.effort() == 900);
+        CHECK(parameters.skip_length() == 9000);
+        CHECK(parameters.references() == 100000);
+        CHECK(parameters.verbose() == false);
     }
 }
 
