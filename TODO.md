@@ -4,9 +4,10 @@ SPDX-License-Identifier: MIT
 -->
 
 # TODO
-* Obtain shrinkler code (4.7?)
+* Fix reuse compliancy after adding Shrinkler sources
 * Start writing a wrapper around the data packer
   * Expose all options
+    * Add new ones, such as the parity thing?
   * For starters, running in memory is fine, respectively same interface as agbpack?
   * Need to figure out relatively early whether our old depacker code can cope with
     shrinkler 4.7 output
