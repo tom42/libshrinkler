@@ -4,7 +4,10 @@ SPDX-License-Identifier: MIT
 -->
 
 # TODO
-* Fix reuse compliancy after adding Shrinkler sources
+* Do we need a top level REUSE.toml as has agbpack?
+  * This contains some sort of package information
+  * argpppp is missing it too
+  * If we decide to do so, do we put it onto the new project list?
 * Start writing a wrapper around the data packer
   * Expose all options
     * Add new ones, such as the parity thing?
