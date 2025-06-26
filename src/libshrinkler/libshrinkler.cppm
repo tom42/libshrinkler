@@ -25,6 +25,8 @@ public:
 
     int references() const { return m_references; }
 
+    void references(int references);
+
     int iterations() const { return m_iterations; }
 
     int length_margin() const { return m_length_margin; }

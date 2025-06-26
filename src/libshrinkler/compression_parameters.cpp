@@ -26,4 +26,9 @@ void compression_parameters::parity_context(bool parity_context)
     m_parity_context = parity_context;
 }
 
+void compression_parameters::references(int references)
+{
+    m_references = references;
+}
+
 }
