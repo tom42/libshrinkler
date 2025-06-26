@@ -6,6 +6,8 @@ export module libshrinkler;
 namespace libshrinkler
 {
 
+inline constexpr int min_preset = 1;
+inline constexpr int max_preset = 9;
 inline constexpr int default_preset = 3;
 inline constexpr int default_references = 100000;
 

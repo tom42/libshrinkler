@@ -1,7 +1,29 @@
 // SPDX-FileCopyrightText: 2025 Thomas Mathys
 // SPDX-License-Identifier: MIT
 
+module;
+
+#include <stdexcept>
+
 module libshrinkler;
+
+namespace
+{
+
+bool is_in_range(int value, int min, int max)
+{
+    return (min <= value) && (value <= max);
+}
+
+void throw_if_out_of_range(int value, int min, int max, const char* what)
+{
+    if (!is_in_range(value, min, max))
+    {
+        throw std::out_of_range(what);
+    }
+}
+
+}
 
 namespace libshrinkler
 {
@@ -13,7 +35,8 @@ compression_parameters::compression_parameters(int preset)
 
 void compression_parameters::preset(int preset)
 {
-    // TODO: range check preset? => yes, probably?
+    throw_if_out_of_range(preset, min_preset, max_preset, "preset");
+
     iterations(1 * preset);
     length_margin(1 * preset);
     same_length(10 * preset);
