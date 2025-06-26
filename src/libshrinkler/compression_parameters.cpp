@@ -56,7 +56,7 @@ void compression_parameters::parity_context(bool parity_context)
 
 void compression_parameters::references(int references)
 {
-    // TODO: range check
+    throw_if_out_of_range(references, min_references, max_references, "references");
     m_references = references;
 }
 
