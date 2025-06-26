@@ -29,6 +29,8 @@ public:
 
     int iterations() const { return m_iterations; }
 
+    void iterations(int iterations);
+
     int length_margin() const { return m_length_margin; }
 
     int same_length() const { return m_same_length; }
@@ -59,32 +61,5 @@ IntParameter    effort        ("-e", "--effort",          0,   100000,  100*p, a
 IntParameter    skip_length   ("-s", "--skip-length",     2,   100000, 1000*p, argc, argv, consumed);
 IntParameter    references    ("-r", "--references",   1000,100000000, 100000, argc, argv, consumed);
 */
-
-// TODO: port this, and merge it with Shrinkler' PackParams above
-/*
-class shrinkler_parameters final
-{
-public:
-    explicit shrinkler_parameters(int preset = 2)
-    {
-        this->preset(preset);
-    }
-
-    void preset(int preset)
-    {
-        iterations = 1 * preset;
-        length_margin = 1 * preset;
-        same_length = 10 * preset;
-        effort = 100 * preset;
-        skip_length = 1000 * preset;
-    }
-};
-*/
-
-// TODO: remove this once we have something else to test
-export inline int test()
-{
-    return 6502;
-}
 
 }
