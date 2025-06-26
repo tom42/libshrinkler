@@ -37,6 +37,8 @@ public:
 
     int same_length() const { return m_same_length; }
 
+    void same_length(int same_length);
+
     int effort() const { return m_effort; }
 
     int skip_length() const { return m_skip_length; }
