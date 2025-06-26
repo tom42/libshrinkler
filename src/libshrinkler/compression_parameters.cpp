@@ -16,4 +16,9 @@ void compression_parameters::preset(int /*preset*/)
 
 }
 
+void compression_parameters::verbose(bool verbose)
+{
+    m_verbose = verbose;
+}
+
 }

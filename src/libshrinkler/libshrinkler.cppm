@@ -17,6 +17,8 @@ public:
 
     bool verbose() const { return m_verbose; }
 
+    void verbose(bool verbose);
+
     bool parity_context() const { return m_parity_context; }
 
     int references() const { return m_references; }
