@@ -33,6 +33,8 @@ public:
 
     int length_margin() const { return m_length_margin; }
 
+    void length_margin(int length_margin);
+
     int same_length() const { return m_same_length; }
 
     int effort() const { return m_effort; }

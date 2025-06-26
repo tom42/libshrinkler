@@ -44,4 +44,9 @@ void compression_parameters::iterations(int iterations)
     m_iterations = iterations;
 }
 
+void compression_parameters::length_margin(int length_margin)
+{
+    m_length_margin = length_margin;
+}
+
 }
