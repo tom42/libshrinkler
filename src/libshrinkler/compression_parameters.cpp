@@ -62,7 +62,7 @@ void compression_parameters::references(int references)
 
 void compression_parameters::iterations(int iterations)
 {
-    // TODO: range check
+    throw_if_out_of_range(iterations, min_iterations, max_iterations, "iterations");
     m_iterations = iterations;
 }
 

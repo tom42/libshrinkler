@@ -9,9 +9,13 @@ namespace libshrinkler
 inline constexpr int min_preset = 1;
 inline constexpr int max_preset = 9;
 inline constexpr int default_preset = 3;
+
 inline constexpr int min_references = 1000;
 inline constexpr int max_references = 100000000;
 inline constexpr int default_references = 100000;
+
+inline constexpr int min_iterations = 1;
+inline constexpr int max_iterations = 9;
 
 export class compression_parameters final
 {
@@ -65,7 +69,6 @@ private:
 
 // TODO: here are min/max values:
 /*
-IntParameter    iterations    ("-i", "--iterations",      1,        9,    1*p, argc, argv, consumed);
 IntParameter    length_margin ("-l", "--length-margin",   0,      100,    1*p, argc, argv, consumed);
 IntParameter    same_length   ("-a", "--same-length",     1,   100000,   10*p, argc, argv, consumed);
 IntParameter    effort        ("-e", "--effort",          0,   100000,  100*p, argc, argv, consumed);
