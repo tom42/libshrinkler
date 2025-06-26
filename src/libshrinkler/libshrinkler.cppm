@@ -41,10 +41,13 @@ public:
 
     int effort() const { return m_effort; }
 
+    void effort(int effort);
+
     int skip_length() const { return m_skip_length; }
 
+    void skip_length(int skip_length);
+
     // TODO: once it builds this needs a test
-    // TODO: add setters for all fields (range checks?(
 private:
     bool m_verbose = false;
     bool m_parity_context = true;

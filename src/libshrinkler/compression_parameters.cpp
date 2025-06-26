@@ -17,10 +17,8 @@ void compression_parameters::preset(int preset)
     iterations(1 * preset);
     length_margin(1 * preset);
     same_length(10 * preset);
-/*
-    effort = 100 * preset;
-    skip_length = 1000 * preset;
-*/
+    effort(100 * preset);
+    skip_length(1000 * preset);
 }
 
 void compression_parameters::verbose(bool verbose)
@@ -55,6 +53,18 @@ void compression_parameters::same_length(int same_length)
 {
     // TODO: range check
     m_same_length = same_length;
+}
+
+void compression_parameters::effort(int effort)
+{
+    // TODO: range check
+    m_effort = effort;
+}
+
+void compression_parameters::skip_length(int skip_length)
+{
+    // TODO: range check
+    m_skip_length = skip_length;
 }
 
 }
