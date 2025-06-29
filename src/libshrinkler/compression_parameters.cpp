@@ -80,13 +80,13 @@ void compression_parameters::same_length(int same_length)
 
 void compression_parameters::effort(int effort)
 {
-    // TODO: range check
+    throw_if_out_of_range(effort, min_effort, max_effort, "effort");
     m_effort = effort;
 }
 
 void compression_parameters::skip_length(int skip_length)
 {
-    // TODO: range check
+    throw_if_out_of_range(skip_length, min_skip_length, max_skip_length, "skip_length");
     m_skip_length = skip_length;
 }
 

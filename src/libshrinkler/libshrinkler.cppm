@@ -23,6 +23,12 @@ inline constexpr int max_length_margin = 100;
 inline constexpr int min_same_length = 1;
 inline constexpr int max_same_length = 100000;
 
+inline constexpr int min_effort = 0;
+inline constexpr int max_effort = 100000;
+
+inline constexpr int min_skip_length = 2;
+inline constexpr int max_skip_length = 100000;
+
 export class compression_parameters final
 {
 public:
@@ -72,11 +78,5 @@ private:
     int m_effort;
     int m_skip_length;
 };
-
-// TODO: here are min/max values:
-/*
-IntParameter    effort        ("-e", "--effort",          0,   100000,  100*p, argc, argv, consumed);
-IntParameter    skip_length   ("-s", "--skip-length",     2,   100000, 1000*p, argc, argv, consumed);
-*/
 
 }
