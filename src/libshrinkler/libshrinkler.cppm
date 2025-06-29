@@ -20,6 +20,9 @@ inline constexpr int max_iterations = 9;
 inline constexpr int min_length_margin = 0;
 inline constexpr int max_length_margin = 100;
 
+inline constexpr int min_same_length = 1;
+inline constexpr int max_same_length = 100000;
+
 export class compression_parameters final
 {
 public:
@@ -72,7 +75,6 @@ private:
 
 // TODO: here are min/max values:
 /*
-IntParameter    same_length   ("-a", "--same-length",     1,   100000,   10*p, argc, argv, consumed);
 IntParameter    effort        ("-e", "--effort",          0,   100000,  100*p, argc, argv, consumed);
 IntParameter    skip_length   ("-s", "--skip-length",     2,   100000, 1000*p, argc, argv, consumed);
 */

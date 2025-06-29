@@ -74,7 +74,7 @@ void compression_parameters::length_margin(int length_margin)
 
 void compression_parameters::same_length(int same_length)
 {
-    // TODO: range check
+    throw_if_out_of_range(same_length, min_same_length, max_same_length, "same_length");
     m_same_length = same_length;
 }
 
