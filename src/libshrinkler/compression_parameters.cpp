@@ -68,7 +68,7 @@ void compression_parameters::iterations(int iterations)
 
 void compression_parameters::length_margin(int length_margin)
 {
-    // TODO: range check
+    throw_if_out_of_range(length_margin, min_length_margin, max_length_margin, "length_margin");
     m_length_margin = length_margin;
 }
 
