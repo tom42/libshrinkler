@@ -4,12 +4,11 @@ SPDX-License-Identifier: MIT
 -->
 
 # TODO
-* Do we need a top level REUSE.toml as has agbpack?
-  * argpppp is missing it too
-  * If we decide to do so, do we put it onto the new project list?
 * Start writing a wrapper around the data packer
   * Expose all options
     * Add new ones, such as the parity thing?
+    * What about logging? We're a library and should not log ourselves
+    * What about results? (Compressed data, skip length thing)
   * For starters, running in memory is fine, respectively same interface as agbpack?
   * Need to figure out relatively early whether our old depacker code can cope with
     shrinkler 4.7 output
