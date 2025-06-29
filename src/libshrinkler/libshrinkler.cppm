@@ -79,4 +79,17 @@ private:
     int m_skip_length;
 };
 
+class encoder final
+{
+public:
+    // TODO: what is the public interface?
+private:
+};
+
+class decoder final
+{
+public:
+    // TODO: what is the public interface?
+};
+
 }
