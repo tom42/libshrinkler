@@ -79,10 +79,18 @@ private:
     int m_skip_length;
 };
 
+// TODO: need a way to set parameters
 class encoder final
 {
 public:
-    // TODO: what is the public interface?
+    template <typename InputIterator, typename OutputIterator>
+    void encode(InputIterator /*input*/, InputIterator /*eof*/, OutputIterator /*output*/)
+    {
+        // TODO: copy [input, eof) to tmp buffer
+        // TODO: encode data to tmp buffer
+        // TODO: copy data to output
+    }
+
 private:
 };
 
