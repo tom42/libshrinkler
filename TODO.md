@@ -6,7 +6,9 @@ SPDX-License-Identifier: MIT
 # TODO
 * Start writing a wrapper around the data packer
   * Expose all options
-    * Add new ones, such as the parity thing?
+    * Add new ones
+      * Such as the parity thing?
+      * And what about the header? With/without header could be an option too, no?
     * What about logging? We're a library and should not log ourselves
     * What about results? (Compressed data, skip length thing)
   * For starters, running in memory is fine, respectively same interface as agbpack?
