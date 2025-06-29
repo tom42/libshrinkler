@@ -6,7 +6,7 @@ set(
   PUBLIC FILE_SET CXX_MODULES FILES
   libshrinkler.cppm
   PRIVATE
-  compression_parameters.cpp)
+  encoder_parameters.cpp)
 
 add_library(libshrinkler)
 target_sources(libshrinkler ${libshrinkler_sources})

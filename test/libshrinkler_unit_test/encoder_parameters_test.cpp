@@ -8,11 +8,11 @@ import libshrinkler;
 namespace libshrinkler_unit_test
 {
 
-TEST_CASE("compression_parameters_test")
+TEST_CASE("encoder_parameters_test")
 {
     SECTION("construct_with_preset_1")
     {
-        const libshrinkler::compression_parameters parameters(1);
+        const libshrinkler::encoder_parameters parameters(1);
 
         CHECK(parameters.parity_context() == true);
         CHECK(parameters.iterations() == 1);
@@ -26,7 +26,7 @@ TEST_CASE("compression_parameters_test")
 
     SECTION("construct_with_preset_9")
     {
-        const libshrinkler::compression_parameters parameters(9);
+        const libshrinkler::encoder_parameters parameters(9);
 
         CHECK(parameters.parity_context() == true);
         CHECK(parameters.iterations() == 9);
