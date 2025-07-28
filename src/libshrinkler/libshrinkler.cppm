@@ -94,10 +94,4 @@ public:
 private:
 };
 
-class decoder final
-{
-public:
-    // TODO: what is the public interface?
-};
-
 }
