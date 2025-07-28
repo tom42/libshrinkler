@@ -1,6 +1,10 @@
 // SPDX-FileCopyrightText: 2025 Thomas Mathys
 // SPDX-License-Identifier: MIT
 
+module;
+
+#include <vector>
+
 export module libshrinkler;
 
 namespace libshrinkler
@@ -90,6 +94,8 @@ public:
         // TODO: encode data to tmp buffer
         // TODO: copy data to output
     }
+
+    std::vector<unsigned char> encode(const std::vector<unsigned char>& data);
 
 private:
 };
