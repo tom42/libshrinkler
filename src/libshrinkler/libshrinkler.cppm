@@ -87,14 +87,6 @@ private:
 class encoder final
 {
 public:
-    template <typename InputIterator, typename OutputIterator>
-    void encode(InputIterator /*input*/, InputIterator /*eof*/, OutputIterator /*output*/)
-    {
-        // TODO: copy [input, eof) to tmp buffer
-        // TODO: encode data to tmp buffer
-        // TODO: copy data to output
-    }
-
     std::vector<unsigned char> encode(const std::vector<unsigned char>& data);
 
 private:
