@@ -7,6 +7,7 @@ SPDX-License-Identifier: MIT
 * Start writing a wrapper around the data packer
   * Expose all options
     * Add new ones
+      * Little/big endianness?
       * Such as the parity thing?
       * And what about the header? With/without header could be an option too, no?
     * What about logging? We're a library and should not log ourselves

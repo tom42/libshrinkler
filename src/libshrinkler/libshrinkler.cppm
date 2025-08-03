@@ -84,7 +84,7 @@ private:
 };
 
 // TODO: need a way to set parameters
-class encoder final
+export class encoder final
 {
 public:
     std::vector<unsigned char> encode(const std::vector<unsigned char>& data);
