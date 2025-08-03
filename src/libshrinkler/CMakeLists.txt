@@ -6,6 +6,7 @@ set(
   PUBLIC FILE_SET CXX_MODULES FILES
   libshrinkler.cppm
   PRIVATE
+  encoder.cpp
   encoder_parameters.cpp)
 
 add_library(libshrinkler)
