@@ -9,6 +9,28 @@ module;
 
 module libshrinkler;
 
+namespace
+{
+
+void compress()
+{
+    // TODO: compress
+}
+
+void verify()
+{
+    // TODO: verify
+}
+
+void crunch()
+{
+    // TODO: print message regarding safety margin? (Then again, should we print anything?)
+    compress();
+    verify();
+}
+
+}
+
 namespace libshrinkler
 {
 
@@ -24,7 +46,10 @@ std::vector<unsigned char> encoder::encode(const std::vector<unsigned char>& /*d
     //       * compress
     //       * verify
     //       * swap endianness if requested (and pad if needed)
+
+    // TODO: print crunching... message?
     RefEdgeFactory edge_factory(m_parameters.references());
+    crunch(); // TODO: pass parameters
 
     return {};
 
@@ -34,13 +59,6 @@ std::vector<unsigned char> encoder::encode(const std::vector<unsigned char>& /*d
     //       * Do console I/O
     /*
     if (data.seen) {
-        // Data file compression
-        printf("Loading file %s...\n\n", infile);
-        DataFile *orig = new DataFile;
-        orig->load(infile);
-
-        printf("Crunching...\n\n");
-        RefEdgeFactory edge_factory(references.value);
         DataFile *crunched = orig->crunch(&params, &edge_factory, !no_progress.seen);
         delete orig;
         printf("References considered:%8d\n",  edge_factory.max_edge_count);
