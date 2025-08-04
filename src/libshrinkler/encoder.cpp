@@ -3,7 +3,9 @@
 
 module;
 
+#include <iostream> // TODO: needed because of shrinkler code - I'd prefer not to have this here
 #include <vector>
+#include "Pack.h" // TODO: this causes shrinkler's assert macro to be defined. To we really want this?
 
 module libshrinkler;
 
@@ -22,6 +24,8 @@ std::vector<unsigned char> encoder::encode(const std::vector<unsigned char>& /*d
     //       * compress
     //       * verify
     //       * swap endianness if requested (and pad if needed)
+    RefEdgeFactory edge_factory(m_parameters.references());
+
     return {};
 
     // TODO: for reference, here is the code to port

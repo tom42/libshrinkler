@@ -12,6 +12,7 @@ set(
 add_library(libshrinkler)
 target_sources(libshrinkler ${libshrinkler_sources})
 target_compile_features(libshrinkler PUBLIC cxx_std_23)
+target_include_directories(libshrinkler SYSTEM PRIVATE ../shrinkler/cruncher)
 vtg_target_enable_warnings(libshrinkler)
 
 if(libshrinkler_INSTALL_STATIC_LIBRARY)
