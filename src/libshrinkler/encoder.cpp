@@ -5,6 +5,11 @@ module;
 
 #include <iostream> // TODO: needed because of shrinkler code - I'd prefer not to have this here
 #include <vector>
+
+// TODO: NUM_RELOC_CONTEXTS:
+//       * Document where this comes from and why we duplicate it
+//       * Not a macro!
+#define NUM_RELOC_CONTEXTS 256
 #include "Pack.h" // TODO: this causes shrinkler's assert macro to be defined. To we really want this?
 
 module libshrinkler;
@@ -15,6 +20,29 @@ namespace
 void compress()
 {
     // TODO: compress
+    vector<unsigned char> pack_buffer; // TODO: => compressed_data
+    RangeCoder range_coder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
+
+    // TODO: note: apparently packData uses printf. Teach it not to do this?
+    //             note: in the past we fixed this by reimplementing packData too
+    range_coder.reset();
+    packData(&data[0], data.size(), 0, params, &range_coder, edge_factory, show_progress);
+    range_coder.finish();
+
+    // TODO: reference code below
+    /*
+    vector<unsigned char> compress(PackParams *params, RefEdgeFactory *edge_factory, bool show_progress) {
+
+        // Crunch the data
+        range_coder.reset();
+        packData(&data[0], data.size(), 0, params, &range_coder, edge_factory, show_progress);
+        range_coder.finish();
+        printf("\n\n");
+        fflush(stdout);
+
+        return pack_buffer;
+    }
+     */
 }
 
 void verify()
