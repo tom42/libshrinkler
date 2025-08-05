@@ -38,7 +38,7 @@ PackParams create_pack_params(const encoder_parameters& parameters)
 }
 
 // TODO: data => uncompressed_data?
-void compress(const std::vector<unsigned char>& data, const encoder_parameters& parameters)
+void compress(const std::vector<unsigned char>& data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
 {
     // TODO: compress
     auto params = create_pack_params(parameters); // TODO: params => pack_params?
@@ -47,8 +47,9 @@ void compress(const std::vector<unsigned char>& data, const encoder_parameters& 
 
     // TODO: note: apparently packData uses printf. Teach it not to do this?
     //             note: in the past we fixed this by reimplementing packData too
+    // TODO: for starters, show_progress is hardcoded to be true. This needs to be an argument
     range_coder.reset();
-    packData(data.data(), data.size(), 0, params, &range_coder, edge_factory, show_progress);
+    packData(data.data(), data.size(), 0, params, &range_coder, &edge_factory, true);
     range_coder.finish();
 
     // TODO: reference code below
