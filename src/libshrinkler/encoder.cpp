@@ -17,7 +17,8 @@ module libshrinkler;
 namespace
 {
 
-void compress()
+// TODO: data => uncompressed_data?
+void compress(const std::vector<unsigned char>& data)
 {
     // TODO: compress
     vector<unsigned char> pack_buffer; // TODO: => compressed_data
@@ -26,7 +27,7 @@ void compress()
     // TODO: note: apparently packData uses printf. Teach it not to do this?
     //             note: in the past we fixed this by reimplementing packData too
     range_coder.reset();
-    packData(&data[0], data.size(), 0, params, &range_coder, edge_factory, show_progress);
+    packData(data.data(), data.size(), 0, params, &range_coder, edge_factory, show_progress);
     range_coder.finish();
 
     // TODO: reference code below
