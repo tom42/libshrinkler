@@ -41,6 +41,7 @@ PackParams create_pack_params(const encoder_parameters& parameters)
 void compress(const std::vector<unsigned char>& data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
 {
     // TODO: compress
+    auto non_const_data = data; // TODO: document why we're doing this?
     auto params = create_pack_params(parameters); // TODO: params => pack_params?
     vector<unsigned char> pack_buffer; // TODO: => compressed_data
     RangeCoder range_coder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
@@ -49,7 +50,7 @@ void compress(const std::vector<unsigned char>& data, const encoder_parameters& 
     //             note: in the past we fixed this by reimplementing packData too
     // TODO: for starters, show_progress is hardcoded to be true. This needs to be an argument
     range_coder.reset();
-    packData(data.data(), data.size(), 0, params, &range_coder, &edge_factory, true);
+    packData(non_const_data.data(), non_const_data.size(), 0, &params, &range_coder, &edge_factory, true);
     range_coder.finish();
 
     // TODO: reference code below
