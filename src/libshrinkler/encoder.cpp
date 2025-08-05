@@ -1,6 +1,9 @@
 // SPDX-FileCopyrightText: 2025 Thomas Mathys
 // SPDX-License-Identifier: MIT
 
+// TODO: in the old implementation, we used the shrinkler license for this file since it's mostly shrinkler code
+//       consider doing this again. Much less problematic that way.
+
 module;
 
 #include <iostream> // TODO: needed because of shrinkler code - I'd prefer not to have this here
