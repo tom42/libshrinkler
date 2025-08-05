@@ -14,13 +14,31 @@ module;
 
 module libshrinkler;
 
+namespace libshrinkler
+{
+
 namespace
 {
 
+PackParams create_pack_params(const encoder_parameters& parameters)
+{
+    // TODO: review: are these all fields?
+    return
+    {
+        .parity_context = parameters.parity_context(),
+        .iterations = parameters.iterations(),
+        .length_margin = parameters.length_margin(),
+        .skip_length = parameters.skip_length(),
+        .match_patience = parameters.effort(),
+        .max_same_length = parameters.same_length()
+    };
+}
+
 // TODO: data => uncompressed_data?
-void compress(const std::vector<unsigned char>& data)
+void compress(const std::vector<unsigned char>& data, const encoder_parameters& parameters)
 {
     // TODO: compress
+    auto params = create_pack_params(parameters); // TODO: params => pack_params?
     vector<unsigned char> pack_buffer; // TODO: => compressed_data
     RangeCoder range_coder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
 
@@ -59,9 +77,6 @@ void crunch()
 }
 
 }
-
-namespace libshrinkler
-{
 
 void encoder::parameters(const encoder_parameters& parameters)
 {
