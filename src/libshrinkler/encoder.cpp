@@ -3,6 +3,7 @@
 
 // TODO: in the old implementation, we used the shrinkler license for this file since it's mostly shrinkler code
 //       consider doing this again. Much less problematic that way.
+// TODO: replace vector<unsigned char> by an alias
 
 module;
 
@@ -38,7 +39,7 @@ PackParams create_pack_params(const encoder_parameters& parameters)
 }
 
 // TODO: data => uncompressed_data?
-void compress(const std::vector<unsigned char>& data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
+std::vector<unsigned char> compress(const std::vector<unsigned char>& data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
 {
     // TODO: compress
     auto non_const_data = data; // TODO: document why we're doing this?
@@ -53,6 +54,8 @@ void compress(const std::vector<unsigned char>& data, const encoder_parameters& 
     // TODO: no static_cast here. Have a conversion from size_t to to_int which throws (that is a specialized numeric_cast)
     packData(non_const_data.data(), static_cast<int>(non_const_data.size()), 0, &params, &range_coder, &edge_factory, true);
     range_coder.finish();
+
+    return pack_buffer;
 
     // TODO: reference code below
     /*
@@ -75,11 +78,12 @@ void verify()
     // TODO: verify
 }
 
-void crunch(const std::vector<unsigned char>& data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
+std::vector<unsigned char> crunch(const std::vector<unsigned char>& data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
 {
     // TODO: print message regarding safety margin? (Then again, should we print anything?)
-    compress(data, parameters, edge_factory);
+    auto compressed_data = compress(data, parameters, edge_factory);
     verify();
+    return compressed_data;
 }
 
 }
@@ -99,9 +103,9 @@ std::vector<unsigned char> encoder::encode(const std::vector<unsigned char>& dat
 
     // TODO: print crunching... message?
     RefEdgeFactory edge_factory(m_parameters.references());
-    crunch(data, m_parameters, edge_factory); // TODO: consider making crunch a member, so less parameter passing?
+    auto compressed_data = crunch(data, m_parameters, edge_factory); // TODO: consider making crunch a member, so less parameter passing?
 
-    return {};
+    return compressed_data;
 
     // TODO: for reference, here is the code to port
     // TODO: need to patch DataFile, such that it does not
