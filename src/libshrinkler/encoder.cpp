@@ -50,7 +50,8 @@ void compress(const std::vector<unsigned char>& data, const encoder_parameters& 
     //             note: in the past we fixed this by reimplementing packData too
     // TODO: for starters, show_progress is hardcoded to be true. This needs to be an argument
     range_coder.reset();
-    packData(non_const_data.data(), non_const_data.size(), 0, &params, &range_coder, &edge_factory, true);
+    // TODO: no static_cast here. Have a conversion from size_t to to_int which throws (that is a specialized numeric_cast)
+    packData(non_const_data.data(), static_cast<int>(non_const_data.size()), 0, &params, &range_coder, &edge_factory, true);
     range_coder.finish();
 
     // TODO: reference code below
