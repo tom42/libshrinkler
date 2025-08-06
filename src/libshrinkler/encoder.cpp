@@ -75,10 +75,10 @@ void verify()
     // TODO: verify
 }
 
-void crunch()
+void crunch(const std::vector<unsigned char>& data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
 {
     // TODO: print message regarding safety margin? (Then again, should we print anything?)
-    compress();
+    compress(data, parameters, edge_factory);
     verify();
 }
 
@@ -89,7 +89,7 @@ void encoder::parameters(const encoder_parameters& parameters)
     m_parameters = parameters;
 }
 
-std::vector<unsigned char> encoder::encode(const std::vector<unsigned char>& /*data*/)
+std::vector<unsigned char> encoder::encode(const std::vector<unsigned char>& data)
 {
     // TODO: implement (start at shrinkler's main I guess)
     //       * set up parameters
@@ -99,7 +99,7 @@ std::vector<unsigned char> encoder::encode(const std::vector<unsigned char>& /*d
 
     // TODO: print crunching... message?
     RefEdgeFactory edge_factory(m_parameters.references());
-    crunch(); // TODO: pass parameters
+    crunch(data, m_parameters, edge_factory); // TODO: consider making crunch a member, so less parameter passing?
 
     return {};
 
