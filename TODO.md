@@ -5,6 +5,7 @@ SPDX-License-Identifier: MIT
 
 # TODO
 * Start writing a wrapper around the data packer
+  * Figure out what to do about that assert macro. How did we work around this in shrinkler-gba?
   * Expose all options
     * Add new ones
       * Little/big endianness?
