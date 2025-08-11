@@ -9,6 +9,7 @@ module;
 
 #include <cstddef>
 #include <iostream> // TODO: needed because of shrinkler code - I'd prefer not to have this here
+#include <utility>
 #include <vector>
 
 // TODO: NUM_RELOC_CONTEXTS:
@@ -98,7 +99,8 @@ void make_little_endian(std::vector<unsigned char>& data)
     // TODO: should that also go into an own function?
     for (std::size_t i = 0; i < data.size(); i += 4)
     {
-
+        std::swap(data[i + 0], data[i + 3]);
+        std::swap(data[i + 1], data[i + 2]);
     }
 }
 
