@@ -33,6 +33,12 @@ inline constexpr int max_effort = 100000;
 inline constexpr int min_skip_length = 2;
 inline constexpr int max_skip_length = 100000;
 
+export enum class endianness
+{
+    big,
+    little
+};
+
 export class encoder_parameters final
 {
 public:
