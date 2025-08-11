@@ -90,4 +90,10 @@ void encoder_parameters::skip_length(int skip_length)
     m_skip_length = skip_length;
 }
 
+void encoder_parameters::endianness(libshrinkler::endianness endianness)
+{
+    // TODO: validate?
+    m_endianness = endianness;
+}
+
 }

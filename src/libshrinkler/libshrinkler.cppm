@@ -78,6 +78,10 @@ public:
 
     void skip_length(int skip_length);
 
+    void endianness(libshrinkler::endianness endianness);
+
+    libshrinkler::endianness endianness() const { return m_endianness; }
+
 private:
     bool m_verbose = false; // TODO: not sure this should be here. This are encoder parameters controlling the output, not logging
     bool m_parity_context = true;
@@ -87,7 +91,7 @@ private:
     int m_same_length;
     int m_effort;
     int m_skip_length;
-    endianness m_endianness = endianness::big;
+    libshrinkler::endianness m_endianness = endianness::big;
 };
 
 export class encoder final
