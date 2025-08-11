@@ -123,8 +123,10 @@ std::vector<unsigned char> encoder::encode(const std::vector<unsigned char>& dat
     RefEdgeFactory edge_factory(m_parameters.references());
     auto compressed_data = crunch(data, m_parameters, edge_factory); // TODO: consider making crunch a member, so less parameter passing?
 
-    // TODO: swap endianness: Only do this if enabled in parameters
-    make_little_endian(compressed_data);
+    if (m_parameters.endianness() == endianness::little)
+    {
+        make_little_endian(compressed_data);
+    }
 
     return compressed_data;
 

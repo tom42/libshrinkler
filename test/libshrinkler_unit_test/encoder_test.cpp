@@ -12,6 +12,7 @@ namespace libshrinkler_unit_test
 
 using libshrinkler::encoder_parameters;
 using libshrinkler::encoder;
+using libshrinkler::endianness;
 using bytevector = std::vector<unsigned char>;
 
 namespace
@@ -39,11 +40,10 @@ TEST_CASE("encoder_test")
 
     SECTION("parity")
     {
-        // TODO: the existing old test assumes little endian with padding here, so we might want to adapt this test
-        //       accordingly, meaning we'd have to set endianness to 'little'
         const auto original_data = make_bytevector("foo foo foo foo");
         const bytevector expected_encoded_data{0xc6, 0x62, 0xc8, 0x99, 0x00, 0x00, 0x39, 0x9b};
         parameters.parity_context(true);
+        parameters.endianness(endianness::little);
         encoder.parameters(parameters);
 
         auto actual_encoded_data = encoder.encode(original_data);
