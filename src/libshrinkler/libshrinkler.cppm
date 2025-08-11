@@ -87,6 +87,7 @@ private:
     int m_same_length;
     int m_effort;
     int m_skip_length;
+    endianness m_endianness = endianness::big;
 };
 
 export class encoder final
