@@ -7,6 +7,7 @@
 
 module;
 
+#include <cstddef>
 #include <iostream> // TODO: needed because of shrinkler code - I'd prefer not to have this here
 #include <vector>
 
@@ -86,6 +87,21 @@ std::vector<unsigned char> crunch(const std::vector<unsigned char>& data, const 
     return compressed_data;
 }
 
+void make_little_endian(std::vector<unsigned char>& data)
+{
+    // TODO: that should go into an own function, no?
+    while ((data.size() % 4) != 0)
+    {
+        data.push_back(0);
+    }
+
+    // TODO: should that also go into an own function?
+    for (std::size_t i = 0; i < data.size(); i += 4)
+    {
+
+    }
+}
+
 }
 
 void encoder::parameters(const encoder_parameters& parameters)
@@ -104,6 +120,9 @@ std::vector<unsigned char> encoder::encode(const std::vector<unsigned char>& dat
     // TODO: print crunching... message?
     RefEdgeFactory edge_factory(m_parameters.references());
     auto compressed_data = crunch(data, m_parameters, edge_factory); // TODO: consider making crunch a member, so less parameter passing?
+
+    // TODO: swap endianness: Only do this if enabled in parameters
+    make_little_endian(compressed_data);
 
     return compressed_data;
 
