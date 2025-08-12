@@ -26,19 +26,17 @@ bytevector make_bytevector(const char* s)
 }
 
 // TODO: reimplement old tests:
-//       * with parity
-//       * Without parity
+//       * Without parity, little endian
 // TODO: new tests
 //       * Big endian output
 //       * Little endian output
-//       * Do we even support the header thing?
 //       * Empty input (would have been a natural first test...)
 TEST_CASE("encoder_test")
 {
     encoder_parameters parameters;
     encoder encoder;
 
-    SECTION("parity")
+    SECTION("parity, little endian")
     {
         const auto original_data = make_bytevector("foo foo foo foo");
         const bytevector expected_encoded_data{0xc6, 0x62, 0xc8, 0x99, 0x00, 0x00, 0x39, 0x9b};
