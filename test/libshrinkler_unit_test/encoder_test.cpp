@@ -25,11 +25,8 @@ bytevector make_bytevector(const char* s)
 
 }
 
-// TODO: reimplement old tests:
-//       * Without parity, little endian
 // TODO: new tests
 //       * Big endian output
-//       * Little endian output
 //       * Empty input (would have been a natural first test...)
 TEST_CASE("encoder_test")
 {
@@ -48,6 +45,20 @@ TEST_CASE("encoder_test")
 
         CHECK(actual_encoded_data == expected_encoded_data);
     }
+
+    SECTION("no parity, little endian")
+    {
+        const auto original_data = make_bytevector("foo foo foo foo");
+        const bytevector expected_encoded_data{0xda, 0x70, 0xc5, 0x99, 0x00, 0x80, 0x59, 0xe3};
+        parameters.parity_context(false);
+        parameters.endianness(endianness::little);
+        encoder.parameters(parameters);
+
+        auto actual_encoded_data = encoder.encode(original_data);
+
+        CHECK(actual_encoded_data == expected_encoded_data);
+    }
+
 }
 
 }
