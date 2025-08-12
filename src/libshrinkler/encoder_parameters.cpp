@@ -44,11 +44,6 @@ void encoder_parameters::preset(int preset)
     skip_length(1000 * preset);
 }
 
-void encoder_parameters::verbose(bool verbose)
-{
-    m_verbose = verbose;
-}
-
 void encoder_parameters::parity_context(bool parity_context)
 {
     m_parity_context = parity_context;

@@ -24,7 +24,6 @@ TEST_CASE("encoder_parameters_test")
         CHECK(parameters.effort() == 100);
         CHECK(parameters.skip_length() == 1000);
         CHECK(parameters.references() == 100000);
-        CHECK(parameters.verbose() == false);
         CHECK(parameters.endianness() == endianness::big);
     }
 
@@ -39,7 +38,6 @@ TEST_CASE("encoder_parameters_test")
         CHECK(parameters.effort() == 900);
         CHECK(parameters.skip_length() == 9000);
         CHECK(parameters.references() == 100000);
-        CHECK(parameters.verbose() == false);
         CHECK(parameters.endianness() == endianness::big);
     }
 }

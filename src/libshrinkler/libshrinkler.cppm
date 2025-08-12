@@ -46,10 +46,6 @@ public:
 
     void preset(int preset);
 
-    bool verbose() const { return m_verbose; }
-
-    void verbose(bool verbose);
-
     bool parity_context() const { return m_parity_context; }
 
     void parity_context(bool parity_context);
@@ -83,7 +79,6 @@ public:
     libshrinkler::endianness endianness() const { return m_endianness; }
 
 private:
-    bool m_verbose = false; // TODO: not sure this should be here. This are encoder parameters controlling the output, not logging
     bool m_parity_context = true;
     int m_references = default_references;
     int m_iterations;
