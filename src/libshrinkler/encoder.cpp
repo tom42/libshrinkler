@@ -15,6 +15,7 @@ module;
 // TODO: NUM_RELOC_CONTEXTS:
 //       * Document where this comes from and why we duplicate it
 //       * Not a macro!
+#undef NDEBUG // TODO: yes, that's ugly. Explain why we need to do it?
 #define NUM_RELOC_CONTEXTS 256
 #include "Pack.h" // TODO: this causes shrinkler's assert macro to be defined. To we really want this?
 
