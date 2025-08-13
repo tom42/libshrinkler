@@ -78,7 +78,38 @@ std::vector<unsigned char> compress(const std::vector<unsigned char>& data, cons
 
 void verify()
 {
-    // TODO: verify
+    // TODO: verify (reference code from shrinkler below) (what about the return value?)
+    /*
+    int verify(PackParams *params, vector<unsigned char>& pack_buffer) {
+        printf("Verifying... ");
+        fflush(stdout);
+        RangeDecoder decoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
+        LZDecoder lzd(&decoder, params->parity_context);
+
+        // Verify data
+        bool error = false;
+        LZVerifier verifier(0, &data[0], data.size(), data.size(), 1);
+        decoder.reset();
+        decoder.setListener(&verifier);
+        if (!lzd.decode(verifier)) {
+            error = true;
+        }
+
+        // Check length
+        if (!error && verifier.size() != data.size()) {
+            printf("Verify error: data has incorrect length (%d, should have been %d)!\n", verifier.size(), (int) data.size());
+            error = true;
+        }
+
+        if (error) {
+            internal_error();
+        }
+
+        printf("OK\n\n");
+
+        return verifier.front_overlap_margin + pack_buffer.size() - data.size();
+    }
+     */
 }
 
 std::vector<unsigned char> crunch(const std::vector<unsigned char>& data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
