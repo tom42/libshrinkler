@@ -10,6 +10,6 @@ export module libshrinkler:endianness;
 namespace libshrinkler
 {
 
-void make_little_endian(std::vector<unsigned char>& data);
+void swap_endianness(std::vector<unsigned char>& data);
 
 }

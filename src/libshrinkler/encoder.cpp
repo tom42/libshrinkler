@@ -110,7 +110,7 @@ std::vector<unsigned char> encoder::encode(const std::vector<unsigned char>& dat
 
     if (m_parameters.endianness() == endianness::little)
     {
-        make_little_endian(compressed_data);
+        swap_endianness(compressed_data);
     }
 
     return compressed_data;

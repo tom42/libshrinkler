@@ -24,11 +24,10 @@ void pad_to_multiple_of_4_bytes(std::vector<unsigned char>& data)
 
 }
 
-void make_little_endian(std::vector<unsigned char>& data)
+void swap_endianness(std::vector<unsigned char>& data)
 {
     pad_to_multiple_of_4_bytes(data);
 
-    // TODO: should that also go into an own function?
     for (std::size_t i = 0; i < data.size(); i += 4)
     {
         std::swap(data[i + 0], data[i + 3]);
