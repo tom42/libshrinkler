@@ -17,6 +17,7 @@ module;
 #undef NDEBUG // TODO: yes, that's ugly. Explain why we need to do it?
 #define NUM_RELOC_CONTEXTS 256
 #include "RangeDecoder.h"
+#include "LZDecoder.h"
 #include "Pack.h" // TODO: this causes shrinkler's assert macro to be defined. To we really want this?
 
 module libshrinkler;
@@ -77,18 +78,22 @@ std::vector<unsigned char> compress(const std::vector<unsigned char>& data, cons
      */
 }
 
-void verify()
+// TODO: pack_buffer => compressed_data?
+void verify(std::vector<unsigned char>& pack_buffer, const encoder_parameters& parameters)
 {
+    // TODO: do we print a verbose message here or somesuch?
+
     RangeDecoder decoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
+    LZDecoder lzd(&decoder, parameters.parity_context());
+
+    // Verify data
+    // TODO: well yes, do so. Base it on shrinkler code, but incorporate our own improvements/modifications
 
     // TODO: verify (reference code from shrinkler below)
     //       * (what about the return value?)
     //       * And what about comparison with original data? Or is this done by the verifier?
     /*
     int verify(PackParams *params, vector<unsigned char>& pack_buffer) {
-        LZDecoder lzd(&decoder, params->parity_context);
-
-        // Verify data
         bool error = false;
         LZVerifier verifier(0, &data[0], data.size(), data.size(), 1);
         decoder.reset();
@@ -114,12 +119,6 @@ void verify()
      */
     // TODO: for reference below is also what we earlier did
     /*
-    CONSOLE_VERBOSE << "Verifying..." << endl;
-
-    RangeDecoder decoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
-    LZDecoder lzd(&decoder, params.parity_context);
-
-    // Verify data
     LZVerifier verifier(0, &data[0], numeric_cast<int>(data.size()), numeric_cast<int>(data.size()));
     decoder.reset();
     decoder.setListener(&verifier);
@@ -142,7 +141,7 @@ std::vector<unsigned char> crunch(const std::vector<unsigned char>& data, const 
 {
     // TODO: print message regarding safety margin? (Then again, should we print anything?)
     auto compressed_data = compress(data, parameters, edge_factory);
-    verify();
+    verify(compressed_data, parameters);
     return compressed_data;
 }
 
