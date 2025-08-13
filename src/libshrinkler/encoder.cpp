@@ -16,6 +16,7 @@ module;
 //       * Not a macro!
 #undef NDEBUG // TODO: yes, that's ugly. Explain why we need to do it?
 #define NUM_RELOC_CONTEXTS 256
+#include "RangeDecoder.h"
 #include "Pack.h" // TODO: this causes shrinkler's assert macro to be defined. To we really want this?
 
 module libshrinkler;
@@ -78,14 +79,13 @@ std::vector<unsigned char> compress(const std::vector<unsigned char>& data, cons
 
 void verify()
 {
+    RangeDecoder decoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
+
     // TODO: verify (reference code from shrinkler below)
     //       * (what about the return value?)
     //       * And what about comparison with original data? Or is this done by the verifier?
     /*
     int verify(PackParams *params, vector<unsigned char>& pack_buffer) {
-        printf("Verifying... ");
-        fflush(stdout);
-        RangeDecoder decoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
         LZDecoder lzd(&decoder, params->parity_context);
 
         // Verify data
