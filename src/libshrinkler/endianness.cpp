@@ -11,13 +11,22 @@ module libshrinkler;
 namespace libshrinkler
 {
 
-void make_little_endian(std::vector<unsigned char>& data)
+namespace
 {
-    // TODO: that should go into an own function, no?
+
+void pad_to_multiple_of_4_bytes(std::vector<unsigned char>& data)
+{
     while ((data.size() % 4) != 0)
     {
         data.push_back(0);
     }
+}
+
+}
+
+void make_little_endian(std::vector<unsigned char>& data)
+{
+    pad_to_multiple_of_4_bytes(data);
 
     // TODO: should that also go into an own function?
     for (std::size_t i = 0; i < data.size(); i += 4)
