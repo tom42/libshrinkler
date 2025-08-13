@@ -112,6 +112,30 @@ void verify()
         return verifier.front_overlap_margin + pack_buffer.size() - data.size();
     }
      */
+    // TODO: for reference below is also what we earlier did
+    /*
+    CONSOLE_VERBOSE << "Verifying..." << endl;
+
+    RangeDecoder decoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
+    LZDecoder lzd(&decoder, params.parity_context);
+
+    // Verify data
+    LZVerifier verifier(0, &data[0], numeric_cast<int>(data.size()), numeric_cast<int>(data.size()));
+    decoder.reset();
+    decoder.setListener(&verifier);
+    if (!lzd.decode(verifier))
+    {
+        throw runtime_error("INTERNAL ERROR: could not verify decompressed data");
+    }
+
+    // Check length
+    if (numeric_cast<size_t>(verifier.size()) != data.size())
+    {
+        throw runtime_error(std::format("INTERNAL ERROR: decompressed data has incorrect length ({}, should have been {})", verifier.size(), data.size()));
+    }
+
+    return verifier.front_overlap_margin + pack_buffer.size() * 4 - data.size(); // TODO: note that the *4 is because in older version of shrinkler, pack_buffer contained 32 bit elements
+     */
 }
 
 std::vector<unsigned char> crunch(const std::vector<unsigned char>& data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
