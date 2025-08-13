@@ -9,7 +9,6 @@ module;
 
 #include <cstddef>
 #include <iostream> // TODO: needed because of shrinkler code - I'd prefer not to have this here
-#include <utility>
 #include <vector>
 
 // TODO: NUM_RELOC_CONTEXTS:
@@ -20,6 +19,7 @@ module;
 #include "Pack.h" // TODO: this causes shrinkler's assert macro to be defined. To we really want this?
 
 module libshrinkler;
+import :endianness;
 
 namespace libshrinkler
 {
@@ -87,22 +87,6 @@ std::vector<unsigned char> crunch(const std::vector<unsigned char>& data, const 
     auto compressed_data = compress(data, parameters, edge_factory);
     verify();
     return compressed_data;
-}
-
-void make_little_endian(std::vector<unsigned char>& data)
-{
-    // TODO: that should go into an own function, no?
-    while ((data.size() % 4) != 0)
-    {
-        data.push_back(0);
-    }
-
-    // TODO: should that also go into an own function?
-    for (std::size_t i = 0; i < data.size(); i += 4)
-    {
-        std::swap(data[i + 0], data[i + 3]);
-        std::swap(data[i + 1], data[i + 2]);
-    }
 }
 
 }

@@ -4,10 +4,12 @@
 set(
   libshrinkler_sources
   PUBLIC FILE_SET CXX_MODULES FILES
+  endianness.cppm
   libshrinkler.cppm
   PRIVATE
   encoder.cpp
-  encoder_parameters.cpp)
+  encoder_parameters.cpp
+  endianness.cpp)
 
 add_library(libshrinkler)
 target_sources(libshrinkler ${libshrinkler_sources})

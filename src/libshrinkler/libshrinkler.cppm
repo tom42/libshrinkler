@@ -7,6 +7,8 @@ module;
 
 export module libshrinkler;
 
+export import :endianness;
+
 namespace libshrinkler
 {
 
