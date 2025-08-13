@@ -78,7 +78,9 @@ std::vector<unsigned char> compress(const std::vector<unsigned char>& data, cons
 
 void verify()
 {
-    // TODO: verify (reference code from shrinkler below) (what about the return value?)
+    // TODO: verify (reference code from shrinkler below)
+    //       * (what about the return value?)
+    //       * And what about comparison with original data? Or is this done by the verifier?
     /*
     int verify(PackParams *params, vector<unsigned char>& pack_buffer) {
         printf("Verifying... ");
