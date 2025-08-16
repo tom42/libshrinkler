@@ -8,17 +8,9 @@
 module;
 
 #include <cstddef>
-#include <iostream> // TODO: needed because of shrinkler code - I'd prefer not to have this here
+#include <iostream> // TODO: needed because of shrinkler code - I'd prefer not to have this here => try later, possibly we can remove it if we do not do any output
 #include <vector>
 #include "shrinkler_headers.hpp"
-
-// TODO: NUM_RELOC_CONTEXTS:
-//       * Document where this comes from and why we duplicate it
-//       * Not a macro!
-#include "RangeDecoder.h"
-#include "LZDecoder.h"
-#include "Verifier.h"
-#include "Pack.h"
 
 module libshrinkler;
 
