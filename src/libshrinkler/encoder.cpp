@@ -143,8 +143,6 @@ std::vector<unsigned char> encoder::encode(const std::vector<unsigned char>& dat
     //       * set up parameters
     //       * compress
     //       * verify
-    //       * swap endianness if requested (and pad if needed)
-
     RefEdgeFactory edge_factory(m_parameters.references());
     auto compressed_data = crunch(data, m_parameters, edge_factory); // TODO: consider making crunch a member, so less parameter passing?
 
