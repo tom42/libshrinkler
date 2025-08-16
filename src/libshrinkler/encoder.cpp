@@ -18,6 +18,7 @@ module;
 #define NUM_RELOC_CONTEXTS 256
 #include "RangeDecoder.h"
 #include "LZDecoder.h"
+#include "Verifier.h"
 #include "Pack.h" // TODO: this causes shrinkler's assert macro to be defined. To we really want this?
 
 module libshrinkler;
@@ -43,11 +44,20 @@ PackParams create_pack_params(const encoder_parameters& parameters)
     };
 }
 
+// TODO: own file
+// TODO: test (0 => good, max int => good, max int + 1 => bad)
+// TODO: what exception do we throw?
+int int_cast(std::size_t size)
+{
+    // TODO: do not cast here. Throw if size does not fit
+    return static_cast<int>(size);
+}
+
 // TODO: data => uncompressed_data?
 std::vector<unsigned char> compress(const std::vector<unsigned char>& data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
 {
     // TODO: compress
-    auto non_const_data = data; // TODO: document why we're doing this?
+    auto non_const_data = data; // TODO: document why we're doing this? (respectively do it only once)
     auto params = create_pack_params(parameters); // TODO: params => pack_params?
     vector<unsigned char> pack_buffer; // TODO: => compressed_data
     RangeCoder range_coder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
@@ -56,8 +66,7 @@ std::vector<unsigned char> compress(const std::vector<unsigned char>& data, cons
     //             note: in the past we fixed this by reimplementing packData too
     // TODO: for starters, show_progress is hardcoded to be true. This needs to be an argument
     range_coder.reset();
-    // TODO: no static_cast here. Have a conversion from size_t to to_int which throws (that is a specialized numeric_cast)
-    packData(non_const_data.data(), static_cast<int>(non_const_data.size()), 0, &params, &range_coder, &edge_factory, true);
+    packData(non_const_data.data(), int_cast(non_const_data.size()), 0, &params, &range_coder, &edge_factory, true);
     range_coder.finish();
 
     return pack_buffer;
@@ -79,7 +88,8 @@ std::vector<unsigned char> compress(const std::vector<unsigned char>& data, cons
 }
 
 // TODO: pack_buffer => compressed_data?
-void verify(std::vector<unsigned char>& pack_buffer, const encoder_parameters& parameters)
+// TODO: data => uncompressed_data?
+void verify(std::vector<unsigned char>& pack_buffer, std::vector<unsigned char>& data, const encoder_parameters& parameters)
 {
     // TODO: do we print a verbose message here or somesuch?
 
@@ -88,19 +98,19 @@ void verify(std::vector<unsigned char>& pack_buffer, const encoder_parameters& p
 
     // Verify data
     // TODO: well yes, do so. Base it on shrinkler code, but incorporate our own improvements/modifications
+    LZVerifier verifier(0, &data[0], int_cast(data.size()), int_cast(data.size()), 1);
+    decoder.reset();
+    decoder.setListener(&verifier);
+    if (!lzd.decode(verifier))
+    {
+        // TODO: verification failed => Throw an exception, or call internal_error => Well throw, I guess?
+    }
 
     // TODO: verify (reference code from shrinkler below)
     //       * (what about the return value?)
     //       * And what about comparison with original data? Or is this done by the verifier?
     /*
     int verify(PackParams *params, vector<unsigned char>& pack_buffer) {
-        bool error = false;
-        LZVerifier verifier(0, &data[0], data.size(), data.size(), 1);
-        decoder.reset();
-        decoder.setListener(&verifier);
-        if (!lzd.decode(verifier)) {
-            error = true;
-        }
 
         // Check length
         if (!error && verifier.size() != data.size()) {
@@ -119,9 +129,6 @@ void verify(std::vector<unsigned char>& pack_buffer, const encoder_parameters& p
      */
     // TODO: for reference below is also what we earlier did
     /*
-    LZVerifier verifier(0, &data[0], numeric_cast<int>(data.size()), numeric_cast<int>(data.size()));
-    decoder.reset();
-    decoder.setListener(&verifier);
     if (!lzd.decode(verifier))
     {
         throw runtime_error("INTERNAL ERROR: could not verify decompressed data");
@@ -137,11 +144,13 @@ void verify(std::vector<unsigned char>& pack_buffer, const encoder_parameters& p
      */
 }
 
+// TODO: "data" => uncompressed_data (everyhwere in this file)
 std::vector<unsigned char> crunch(const std::vector<unsigned char>& data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
 {
     // TODO: print message regarding safety margin? (Then again, should we print anything?)
     auto compressed_data = compress(data, parameters, edge_factory);
-    verify(compressed_data, parameters);
+    auto non_const_data = data; // TODO: document why we're doing this? (respectively do it only once)
+    verify(compressed_data, non_const_data, parameters);
     return compressed_data;
 }
 
