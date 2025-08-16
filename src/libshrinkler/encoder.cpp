@@ -53,12 +53,10 @@ std::vector<unsigned char> compress(const std::vector<unsigned char>& uncompress
     return pack_buffer;
 }
 
-// TODO: pack_buffer => compressed_data?
+// TODO: pack_buffer => compressed_data? (everywhere)
 // TODO: data => uncompressed_data?
 void verify(std::vector<unsigned char>& pack_buffer, std::vector<unsigned char>& data, const encoder_parameters& parameters)
 {
-    // TODO: do we print a verbose message here or somesuch?
-
     RangeDecoder decoder(LZEncoder::NUM_CONTEXTS + num_reloc_contexts, pack_buffer);
     LZDecoder lzd(&decoder, parameters.parity_context());
 
