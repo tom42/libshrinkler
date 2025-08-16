@@ -31,7 +31,6 @@ namespace
 
 PackParams create_pack_params(const encoder_parameters& parameters)
 {
-    // TODO: review: are these all fields?
     return
     {
         .parity_context = parameters.parity_context(),
