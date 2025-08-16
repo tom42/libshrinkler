@@ -22,7 +22,6 @@ module;
 #include "Pack.h" // TODO: this causes shrinkler's assert macro to be defined. To we really want this?
 
 module libshrinkler;
-import :endianness;
 
 namespace libshrinkler
 {
