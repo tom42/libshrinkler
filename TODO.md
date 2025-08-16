@@ -5,8 +5,6 @@ SPDX-License-Identifier: MIT
 
 # TODO
 * Start writing a wrapper around the data packer
-  * Figure out what to do about that assert macro. How did we work around this in shrinkler-gba?
-    * Well get it and see what release builds to, no?
   * When removing shrinker and shrinklerwrapper from shrinkler-gba:
     * Carefully review what we're deleting. For instance there is some documentation scraped off of ada.untergrund.net which explains
       the decompressor a bit and which I'd like to keep.
