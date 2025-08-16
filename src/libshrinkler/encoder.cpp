@@ -54,27 +54,14 @@ std::vector<unsigned char> compress(const std::vector<unsigned char>& data, cons
 
     // TODO: note: apparently packData uses printf. Teach it not to do this?
     //             note: in the past we fixed this by reimplementing packData too
-    // TODO: for starters, show_progress is hardcoded to be true. This needs to be an argument
+    // TODO: for starters, show_progress is hardcoded to be true. This needs to be an argument (or turned off)
+
+    // Crunch the data
     range_coder.reset();
     packData(non_const_data.data(), int_cast(non_const_data.size()), 0, &params, &range_coder, &edge_factory, true);
     range_coder.finish();
 
     return pack_buffer;
-
-    // TODO: reference code below
-    /*
-    vector<unsigned char> compress(PackParams *params, RefEdgeFactory *edge_factory, bool show_progress) {
-
-        // Crunch the data
-        range_coder.reset();
-        packData(&data[0], data.size(), 0, params, &range_coder, edge_factory, show_progress);
-        range_coder.finish();
-        printf("\n\n");
-        fflush(stdout);
-
-        return pack_buffer;
-    }
-     */
 }
 
 // TODO: pack_buffer => compressed_data?
