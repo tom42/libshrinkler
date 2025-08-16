@@ -19,7 +19,7 @@ module;
 #include "RangeDecoder.h"
 #include "LZDecoder.h"
 #include "Verifier.h"
-#include "Pack.h" // TODO: this causes shrinkler's assert macro to be defined. To we really want this?
+#include "Pack.h"
 
 module libshrinkler;
 
