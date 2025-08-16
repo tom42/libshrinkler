@@ -33,13 +33,12 @@ PackParams create_pack_params(const encoder_parameters& parameters)
     };
 }
 
-// TODO: data => uncompressed_data?
-std::vector<unsigned char> compress(const std::vector<unsigned char>& data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
+std::vector<unsigned char> compress(const std::vector<unsigned char>& uncompressed_data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
 {
     // TODO: compress
-    auto non_const_data = data; // TODO: document why we're doing this? (respectively do it only once)
+    auto non_const_data = uncompressed_data; // TODO: document why we're doing this? (respectively do it only once)
     auto params = create_pack_params(parameters); // TODO: params => pack_params?
-    vector<unsigned char> pack_buffer; // TODO: => compressed_data
+    vector<unsigned char> pack_buffer; // TODO: => compressed_data (everywhere)
     RangeCoder range_coder(LZEncoder::NUM_CONTEXTS + num_reloc_contexts, pack_buffer);
 
     // TODO: note: apparently packData uses printf. Teach it not to do this?
