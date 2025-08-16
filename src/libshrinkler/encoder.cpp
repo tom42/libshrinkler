@@ -10,12 +10,11 @@ module;
 #include <cstddef>
 #include <iostream> // TODO: needed because of shrinkler code - I'd prefer not to have this here
 #include <vector>
+#include "shrinkler_headers.hpp"
 
 // TODO: NUM_RELOC_CONTEXTS:
 //       * Document where this comes from and why we duplicate it
 //       * Not a macro!
-#undef NDEBUG // TODO: yes, that's ugly. Explain why we need to do it?
-#define NUM_RELOC_CONTEXTS 256
 #include "RangeDecoder.h"
 #include "LZDecoder.h"
 #include "Verifier.h"
@@ -49,7 +48,7 @@ std::vector<unsigned char> compress(const std::vector<unsigned char>& data, cons
     auto non_const_data = data; // TODO: document why we're doing this? (respectively do it only once)
     auto params = create_pack_params(parameters); // TODO: params => pack_params?
     vector<unsigned char> pack_buffer; // TODO: => compressed_data
-    RangeCoder range_coder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
+    RangeCoder range_coder(LZEncoder::NUM_CONTEXTS + num_reloc_contexts, pack_buffer);
 
     // TODO: note: apparently packData uses printf. Teach it not to do this?
     //             note: in the past we fixed this by reimplementing packData too
@@ -69,7 +68,7 @@ void verify(std::vector<unsigned char>& pack_buffer, std::vector<unsigned char>&
 {
     // TODO: do we print a verbose message here or somesuch?
 
-    RangeDecoder decoder(LZEncoder::NUM_CONTEXTS + NUM_RELOC_CONTEXTS, pack_buffer);
+    RangeDecoder decoder(LZEncoder::NUM_CONTEXTS + num_reloc_contexts, pack_buffer);
     LZDecoder lzd(&decoder, parameters.parity_context());
 
     // Verify data
