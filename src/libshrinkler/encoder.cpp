@@ -88,7 +88,7 @@ void verify(std::vector<unsigned char>& pack_buffer, std::vector<unsigned char>&
 
     // Verify data
     // TODO: well yes, do so. Base it on shrinkler code, but incorporate our own improvements/modifications
-    LZVerifier verifier(0, &data[0], int_cast(data.size()), int_cast(data.size()), 1);
+    LZVerifier verifier(0, data.data(), int_cast(data.size()), int_cast(data.size()), 1);
     decoder.reset();
     decoder.setListener(&verifier);
     if (!lzd.decode(verifier))
