@@ -6,6 +6,7 @@ set(
   PUBLIC FILE_SET CXX_MODULES FILES
   endianness.cppm
   libshrinkler.cppm
+  util.cppm
   PRIVATE
   encoder.cpp
   encoder_parameters.cpp

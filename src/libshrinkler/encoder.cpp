@@ -44,15 +44,6 @@ PackParams create_pack_params(const encoder_parameters& parameters)
     };
 }
 
-// TODO: own file
-// TODO: test (0 => good, max int => good, max int + 1 => bad)
-// TODO: what exception do we throw?
-int int_cast(std::size_t size)
-{
-    // TODO: do not cast here. Throw if size does not fit
-    return static_cast<int>(size);
-}
-
 // TODO: data => uncompressed_data?
 std::vector<unsigned char> compress(const std::vector<unsigned char>& data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
 {
