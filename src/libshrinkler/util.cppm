@@ -12,6 +12,7 @@ namespace libshrinkler
 
 // TODO: test (0 => good, max int => good, max int + 1 => bad)
 // TODO: what exception do we throw?
+LIBSHRINKLER_EXPORT_FOR_UNIT_TESTING
 inline int int_cast(std::size_t size)
 {
     // TODO: do not cast here. Throw if size does not fit
