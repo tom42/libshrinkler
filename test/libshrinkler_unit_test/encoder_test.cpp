@@ -45,6 +45,9 @@ TEST_CASE("encoder_test")
 
     SECTION("parity, big endian, empty input")
     {
+        // TODO: shrinkler iself cannot handle that
+        //       * Update production code to throw in this case
+        //       * Ensure test catches this
         const auto original_data = make_bytevector("");
         const bytevector expected_encoded_data{0x70};
         parameters.parity_context(true);
