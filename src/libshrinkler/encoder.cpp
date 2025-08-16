@@ -38,8 +38,8 @@ std::vector<unsigned char> compress(const std::vector<unsigned char>& uncompress
     // TODO: compress
     auto non_const_data = uncompressed_data; // TODO: document why we're doing this? (respectively do it only once)
     auto params = create_pack_params(parameters); // TODO: params => pack_params?
-    vector<unsigned char> pack_buffer; // TODO: => compressed_data (everywhere)
-    RangeCoder range_coder(LZEncoder::NUM_CONTEXTS + num_reloc_contexts, pack_buffer);
+    vector<unsigned char> compressed_data;
+    RangeCoder range_coder(LZEncoder::NUM_CONTEXTS + num_reloc_contexts, compressed_data);
 
     // TODO: note: apparently packData uses printf. Teach it not to do this?
     //             note: in the past we fixed this by reimplementing packData too
@@ -50,7 +50,7 @@ std::vector<unsigned char> compress(const std::vector<unsigned char>& uncompress
     packData(non_const_data.data(), int_cast(non_const_data.size()), 0, &params, &range_coder, &edge_factory, true);
     range_coder.finish();
 
-    return pack_buffer;
+    return compressed_data;
 }
 
 // TODO: pack_buffer => compressed_data? (everywhere)
