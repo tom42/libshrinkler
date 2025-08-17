@@ -49,10 +49,8 @@ void pack_data(unsigned char *data, int data_length, int zero_padding, PackParam
     vector<LZParseResult> results(2);
     CountingCoder *counting_coder = new CountingCoder(LZEncoder::NUM_CONTEXTS);
     LZProgress *progress = new NoProgress(); // TODO: does this need to be on the heap?
-    printf("%8d", data_length); // TODO: remove
-    for (int i = 0 ; i < params->iterations ; i++) {
-        printf("  ");
 
+    for (int i = 0 ; i < params->iterations ; i++) {
         // Parse data into LZ symbols
         LZParseResult& result = results[1 - best_result];
         Coder *measurer = new SizeMeasuringCoder(counting_coder);
@@ -73,9 +71,6 @@ void pack_data(unsigned char *data, int data_length, int zero_padding, PackParam
             best_result = 1 - best_result;
             best_size = real_size;
         }
-
-        // Print size
-        printf("%14.3f", real_size / double(8 << Coder::BIT_PRECISION));
 
         // Count symbol frequencies
         CountingCoder *new_counting_coder = new CountingCoder(LZEncoder::NUM_CONTEXTS);
