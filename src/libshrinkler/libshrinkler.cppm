@@ -97,7 +97,7 @@ export class encoder final
 public:
     void parameters(const encoder_parameters& parameters);
 
-    std::vector<unsigned char> encode(const std::vector<unsigned char>& data);
+    std::vector<unsigned char> encode(const std::vector<unsigned char>& data) const;
 
 private:
     encoder_parameters m_parameters;

@@ -116,7 +116,7 @@ void encoder::parameters(const encoder_parameters& parameters)
 }
 
 // TODO: "data" => uncompressed_data (everyhwere in this file)
-std::vector<unsigned char> encoder::encode(const std::vector<unsigned char>& uncompressed_data)
+std::vector<unsigned char> encoder::encode(const std::vector<unsigned char>& uncompressed_data) const
 {
     auto non_const_uncompressed_data = uncompressed_data; // TODO: document why we're doing this? (respectively do it only once)
 
