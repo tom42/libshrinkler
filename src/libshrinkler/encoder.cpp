@@ -109,6 +109,7 @@ void verify(std::vector<unsigned char>& pack_buffer, std::vector<unsigned char>&
 }
 
 // TODO: "data" => uncompressed_data (everyhwere in this file)
+// TODO: this function is somewhat useless. Why not remove it altogether? Then there is no wondering why there is a crunch() and a compress() function
 std::vector<unsigned char> crunch(const std::vector<unsigned char>& data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
 {
     // TODO: print message regarding safety margin? (Then again, should we print anything?)
@@ -127,10 +128,6 @@ void encoder::parameters(const encoder_parameters& parameters)
 
 std::vector<unsigned char> encoder::encode(const std::vector<unsigned char>& data)
 {
-    // TODO: implement (start at shrinkler's main I guess)
-    //       * set up parameters
-    //       * compress
-    //       * verify
     RefEdgeFactory edge_factory(m_parameters.references());
     auto compressed_data = crunch(data, m_parameters, edge_factory); // TODO: consider making crunch a member, so less parameter passing?
 
@@ -139,9 +136,14 @@ std::vector<unsigned char> encoder::encode(const std::vector<unsigned char>& dat
         swap_endianness(compressed_data);
     }
 
+    // TODO: prepare some result structure which can be used to return all sorts of data
+    //       * References considered
+    //       * References discarded
+    //       * That hint to use a larger reference buffer
+    //       * Safety margin thing
+
     return compressed_data;
 
-    // TODO: for reference, here is the code to port
     // TODO: need to patch DataFile, such that it does not
     //       * Call exit
     //       * Do console I/O
