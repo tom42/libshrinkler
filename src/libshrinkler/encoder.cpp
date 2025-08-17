@@ -126,10 +126,10 @@ void encoder::parameters(const encoder_parameters& parameters)
     m_parameters = parameters;
 }
 
-std::vector<unsigned char> encoder::encode(const std::vector<unsigned char>& data)
+std::vector<unsigned char> encoder::encode(const std::vector<unsigned char>& uncompressed_data)
 {
     RefEdgeFactory edge_factory(m_parameters.references());
-    auto compressed_data = crunch(data, m_parameters, edge_factory); // TODO: consider making crunch a member, so less parameter passing?
+    auto compressed_data = crunch(uncompressed_data, m_parameters, edge_factory); // TODO: consider making crunch a member, so less parameter passing?
 
     if (m_parameters.endianness() == endianness::little)
     {
