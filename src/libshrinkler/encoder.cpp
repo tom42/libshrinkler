@@ -108,16 +108,6 @@ void verify(std::vector<unsigned char>& pack_buffer, std::vector<unsigned char>&
      */
 }
 
-// TODO: "data" => uncompressed_data (everyhwere in this file)
-// TODO: this function is somewhat useless. Why not remove it altogether? Then there is no wondering why there is a crunch() and a compress() function
-std::vector<unsigned char> crunch(const std::vector<unsigned char>& data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
-{
-    // TODO: print message regarding safety margin? (Then again, should we print anything?)
-    auto compressed_data = compress(data, parameters, edge_factory);
-    auto non_const_data = data; // TODO: document why we're doing this? (respectively do it only once)
-    return compressed_data;
-}
-
 }
 
 void encoder::parameters(const encoder_parameters& parameters)
@@ -125,12 +115,13 @@ void encoder::parameters(const encoder_parameters& parameters)
     m_parameters = parameters;
 }
 
+// TODO: "data" => uncompressed_data (everyhwere in this file)
 std::vector<unsigned char> encoder::encode(const std::vector<unsigned char>& uncompressed_data)
 {
     auto non_const_uncompressed_data = uncompressed_data; // TODO: document why we're doing this? (respectively do it only once)
 
     RefEdgeFactory edge_factory(m_parameters.references());
-    auto compressed_data = crunch(non_const_uncompressed_data, m_parameters, edge_factory); // TODO: consider making crunch a member, so less parameter passing?
+    auto compressed_data = compress(non_const_uncompressed_data, m_parameters, edge_factory); // TODO: consider making crunch a member, so less parameter passing?
 
     verify(compressed_data, non_const_uncompressed_data, m_parameters); // TODO: here too: could be a member, for less parameter passing, no?
 
