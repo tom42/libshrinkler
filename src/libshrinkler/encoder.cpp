@@ -8,7 +8,6 @@
 module;
 
 #include <cstddef>
-#include <iostream> // TODO: needed because of shrinkler code - I'd prefer not to have this here => try later, possibly we can remove it if we do not do any output
 #include <vector>
 #include "shrinkler_headers.hpp"
 

@@ -8,6 +8,7 @@
 // assert does not build if NDEBUG is defined, so we undefine it.
 #undef NDEBUG
 
+#include <cstdio>
 #include "RangeDecoder.h"
 #include "LZDecoder.h"
 #include "Verifier.h"
