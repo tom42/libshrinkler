@@ -40,13 +40,14 @@ PackParams create_pack_params(const encoder_parameters& parameters)
 // TODO: document what this is
 // TODO: reformat
 // TODO: fix all warnings
+// TODO: remove heap allocations where appropriate
 void pack_data(unsigned char *data, int data_length, int zero_padding, PackParams *params, Coder *result_coder, RefEdgeFactory *edge_factory) {
     MatchFinder finder(data, data_length, 2, params->match_patience, params->max_same_length);
     LZParser parser(data, data_length, zero_padding, finder, params->length_margin, params->skip_length, edge_factory);
     result_size_t real_size = 0;
     result_size_t best_size = result_size_t(1) << (32 + 3 + Coder::BIT_PRECISION);
     std::size_t best_result = 0;
-    vector<LZParseResult> results(2);
+    std::vector<LZParseResult> results(2);
     CountingCoder *counting_coder = new CountingCoder(LZEncoder::NUM_CONTEXTS);
     LZProgress *progress = new NoProgress(); // TODO: does this need to be on the heap?
 
