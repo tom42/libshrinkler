@@ -40,7 +40,7 @@ PackParams create_pack_params(const encoder_parameters& parameters)
 // TODO: document what this is
 // TODO: reformat
 // TODO: fix all warnings
-void pack_data(unsigned char *data, int data_length, int zero_padding, PackParams *params, Coder *result_coder, RefEdgeFactory *edge_factory, bool show_progress) {
+void pack_data(unsigned char *data, int data_length, int zero_padding, PackParams *params, Coder *result_coder, RefEdgeFactory *edge_factory) {
     MatchFinder finder(data, data_length, 2, params->match_patience, params->max_same_length);
     LZParser parser(data, data_length, zero_padding, finder, params->length_margin, params->skip_length, edge_factory);
     result_size_t real_size = 0;
@@ -48,13 +48,8 @@ void pack_data(unsigned char *data, int data_length, int zero_padding, PackParam
     std::size_t best_result = 0;
     vector<LZParseResult> results(2);
     CountingCoder *counting_coder = new CountingCoder(LZEncoder::NUM_CONTEXTS);
-    LZProgress *progress;
-    if (show_progress) {
-        progress = new PackProgress();
-    } else {
-        progress = new NoProgress();
-    }
-    printf("%8d", data_length);
+    LZProgress *progress = new NoProgress(); // TODO: does this need to be on the heap?
+    printf("%8d", data_length); // TODO: remove
     for (int i = 0 ; i < params->iterations ; i++) {
         printf("  ");
 
@@ -110,7 +105,7 @@ std::vector<unsigned char> compress(std::vector<unsigned char>& non_const_uncomp
 
     // Crunch the data
     range_coder.reset();
-    pack_data(non_const_uncompressed_data.data(), int_cast(non_const_uncompressed_data.size()), 0, &params, &range_coder, &edge_factory, true);
+    pack_data(non_const_uncompressed_data.data(), int_cast(non_const_uncompressed_data.size()), 0, &params, &range_coder, &edge_factory);
     range_coder.finish();
 
     return compressed_data;
