@@ -116,7 +116,9 @@ void encoder::parameters(const encoder_parameters& parameters)
 // TODO: "data" => uncompressed_data (everyhwere in this file)
 std::vector<unsigned char> encoder::encode(const std::vector<unsigned char>& uncompressed_data) const
 {
-    auto non_const_uncompressed_data = uncompressed_data; // TODO: document why we're doing this? (respectively do it only once)
+    // Shrinkler code uses non-const buffers all over the place, but does not modify them.
+    // Still we specify 'const' to callers, so we create a non-const copy of the original data.
+    auto non_const_uncompressed_data = uncompressed_data;
 
     RefEdgeFactory edge_factory(m_parameters.references());
     auto compressed_data = compress(non_const_uncompressed_data, m_parameters, edge_factory); // TODO: consider making crunch a member, so less parameter passing?
