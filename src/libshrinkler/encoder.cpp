@@ -33,10 +33,8 @@ PackParams create_pack_params(const encoder_parameters& parameters)
     };
 }
 
-std::vector<unsigned char> compress(const std::vector<unsigned char>& uncompressed_data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
+std::vector<unsigned char> compress(std::vector<unsigned char>& non_const_uncompressed_data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
 {
-    // TODO: compress
-    auto non_const_data = uncompressed_data; // TODO: document why we're doing this? (respectively do it only once)
     auto params = create_pack_params(parameters); // TODO: params => pack_params?
     vector<unsigned char> compressed_data;
     RangeCoder range_coder(LZEncoder::NUM_CONTEXTS + num_reloc_contexts, compressed_data);
@@ -47,7 +45,7 @@ std::vector<unsigned char> compress(const std::vector<unsigned char>& uncompress
 
     // Crunch the data
     range_coder.reset();
-    packData(non_const_data.data(), int_cast(non_const_data.size()), 0, &params, &range_coder, &edge_factory, true);
+    packData(non_const_uncompressed_data.data(), int_cast(non_const_uncompressed_data.size()), 0, &params, &range_coder, &edge_factory, true);
     range_coder.finish();
 
     return compressed_data;
