@@ -9,6 +9,7 @@
 #undef NDEBUG
 
 #include <cstdio>
+#include <cstdlib>
 #include "assert.h"
 #include "CountingCoder.h"
 #include "LZDecoder.h"

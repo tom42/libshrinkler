@@ -29,20 +29,19 @@ namespace
 
 
 // TODO: reformat
-// TODO: add override keywords
 // TODO: reformat
 // TODO: name: no_progress
 // TODO: review
 class NoProgress final : public LZProgress {
 public:
-    virtual void begin(int) {
+    virtual void begin(int) override {
         fflush(stdout); // TODO: do we need to call fflush here? What did the old implementation do?
     }
 
-    virtual void update(int) {
+    virtual void update(int) override {
     }
 
-    virtual void end() {
+    virtual void end() override {
     }
 };
 
