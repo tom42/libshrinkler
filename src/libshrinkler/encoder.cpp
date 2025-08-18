@@ -27,6 +27,25 @@ namespace
 // TODO: encoder_parameters: rename effort to match_patience?
 // TODO: encoder_parameters: rename same_length to max_same_length?
 
+
+// TODO: reformat
+// TODO: add override keywords
+// TODO: reformat
+// TODO: name: no_progress
+// TODO: review
+class NoProgress final : public LZProgress {
+public:
+    virtual void begin(int) {
+        fflush(stdout); // TODO: do we need to call fflush here? What did the old implementation do?
+    }
+
+    virtual void update(int) {
+    }
+
+    virtual void end() {
+    }
+};
+
 // TODO: document what this is
 // TODO: reformat
 // TODO: fix all warnings
