@@ -37,7 +37,7 @@ public:
 // TODO: fix all warnings
 // TODO: remove heap allocations where appropriate
 // TODO: make instance member to reduce amount of parameter passing?
-void pack_data(unsigned char *data, int data_length, int zero_padding, const encoder_parameters& parameters, Coder *result_coder, RefEdgeFactory *edge_factory) {
+void pack_data(unsigned char *data, int data_length, int zero_padding, const encoder_parameters& parameters, Coder& result_coder, RefEdgeFactory *edge_factory) {
     MatchFinder finder(data, data_length, 2, parameters.effort(), parameters.same_length());
     LZParser parser(data, data_length, zero_padding, finder, parameters.length_margin(), parameters.skip_length(), edge_factory);
     result_size_t real_size = 0;
@@ -82,7 +82,7 @@ void pack_data(unsigned char *data, int data_length, int zero_padding, const enc
     delete progress;
     delete counting_coder;
 
-    results[best_result].encode(LZEncoder(result_coder, parameters.parity_context()));
+    results[best_result].encode(LZEncoder(&result_coder, parameters.parity_context()));
 }
 
 std::vector<unsigned char> compress(std::vector<unsigned char>& non_const_uncompressed_data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
@@ -96,7 +96,7 @@ std::vector<unsigned char> compress(std::vector<unsigned char>& non_const_uncomp
 
     // Crunch the data
     range_coder.reset();
-    pack_data(non_const_uncompressed_data.data(), int_cast(non_const_uncompressed_data.size()), 0, parameters, &range_coder, &edge_factory);
+    pack_data(non_const_uncompressed_data.data(), int_cast(non_const_uncompressed_data.size()), 0, parameters, range_coder, &edge_factory);
     range_coder.finish();
 
     return compressed_data;
