@@ -33,11 +33,11 @@ public:
 };
 
 // TODO: document what this is
-// TODO: reformat
 // TODO: fix all warnings
 // TODO: remove heap allocations where appropriate
 // TODO: make instance member to reduce amount of parameter passing?
-void pack_data(unsigned char *data, int data_length, int zero_padding, const encoder_parameters& parameters, Coder& result_coder, RefEdgeFactory& edge_factory) {
+void pack_data(unsigned char *data, int data_length, int zero_padding, const encoder_parameters& parameters, Coder& result_coder, RefEdgeFactory& edge_factory)
+{
     MatchFinder finder(data, data_length, 2, parameters.effort(), parameters.same_length());
     LZParser parser(data, data_length, zero_padding, finder, parameters.length_margin(), parameters.skip_length(), &edge_factory);
     result_size_t real_size = 0;
@@ -47,7 +47,8 @@ void pack_data(unsigned char *data, int data_length, int zero_padding, const enc
     CountingCoder *counting_coder = new CountingCoder(LZEncoder::NUM_CONTEXTS);
     LZProgress *progress = new no_progress(); // TODO: does this need to be on the heap?
 
-    for (int i = 0 ; i < parameters.iterations() ; i++) {
+    for (int i = 0 ; i < parameters.iterations() ; i++)
+    {
         // Parse data into LZ symbols
         LZParseResult& result = results[1 - best_result];
         Coder *measurer = new SizeMeasuringCoder(counting_coder);
@@ -64,7 +65,8 @@ void pack_data(unsigned char *data, int data_length, int zero_padding, const enc
         delete range_coder;
 
         // Choose if best
-        if (real_size < best_size) {
+        if (real_size < best_size)
+        {
             best_result = 1 - best_result;
             best_size = real_size;
         }
@@ -79,6 +81,7 @@ void pack_data(unsigned char *data, int data_length, int zero_padding, const enc
         delete old_counting_coder;
         delete new_counting_coder;
     }
+
     delete progress;
     delete counting_coder;
 
