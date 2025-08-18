@@ -9,10 +9,14 @@
 #undef NDEBUG
 
 #include <cstdio>
-#include "RangeDecoder.h"
+#include "assert.h"
+#include "CountingCoder.h"
 #include "LZDecoder.h"
+#include "LZParser.h"
+#include "RangeCoder.h"
+#include "RangeDecoder.h"
+#include "SizeMeasuringCoder.h"
 #include "Verifier.h"
-#include "Pack.h"
 
 namespace libshrinkler
 {
