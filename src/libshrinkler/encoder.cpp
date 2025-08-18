@@ -36,11 +36,10 @@ public:
 // TODO: reformat
 // TODO: fix all warnings
 // TODO: remove heap allocations where appropriate
-// TODO: rename params to parameters?
 // TODO: make instance member to reduce amount of parameter passing?
-void pack_data(unsigned char *data, int data_length, int zero_padding, const encoder_parameters& params, Coder *result_coder, RefEdgeFactory *edge_factory) {
-    MatchFinder finder(data, data_length, 2, params.effort(), params.same_length());
-    LZParser parser(data, data_length, zero_padding, finder, params.length_margin(), params.skip_length(), edge_factory);
+void pack_data(unsigned char *data, int data_length, int zero_padding, const encoder_parameters& parameters, Coder *result_coder, RefEdgeFactory *edge_factory) {
+    MatchFinder finder(data, data_length, 2, parameters.effort(), parameters.same_length());
+    LZParser parser(data, data_length, zero_padding, finder, parameters.length_margin(), parameters.skip_length(), edge_factory);
     result_size_t real_size = 0;
     result_size_t best_size = result_size_t(1) << (32 + 3 + Coder::BIT_PRECISION);
     std::size_t best_result = 0;
@@ -48,19 +47,19 @@ void pack_data(unsigned char *data, int data_length, int zero_padding, const enc
     CountingCoder *counting_coder = new CountingCoder(LZEncoder::NUM_CONTEXTS);
     LZProgress *progress = new no_progress(); // TODO: does this need to be on the heap?
 
-    for (int i = 0 ; i < params.iterations() ; i++) {
+    for (int i = 0 ; i < parameters.iterations() ; i++) {
         // Parse data into LZ symbols
         LZParseResult& result = results[1 - best_result];
         Coder *measurer = new SizeMeasuringCoder(counting_coder);
         measurer->setNumberContexts(LZEncoder::NUMBER_CONTEXT_OFFSET, LZEncoder::NUM_NUMBER_CONTEXTS, data_length);
         finder.reset();
-        result = parser.parse(LZEncoder(measurer, params.parity_context()), progress);
+        result = parser.parse(LZEncoder(measurer, parameters.parity_context()), progress);
         delete measurer;
 
         // Encode result using adaptive range coding
         vector<unsigned char> dummy_result;
         RangeCoder *range_coder = new RangeCoder(LZEncoder::NUM_CONTEXTS, dummy_result);
-        real_size = result.encode(LZEncoder(range_coder, params.parity_context()));
+        real_size = result.encode(LZEncoder(range_coder, parameters.parity_context()));
         range_coder->finish();
         delete range_coder;
 
@@ -72,7 +71,7 @@ void pack_data(unsigned char *data, int data_length, int zero_padding, const enc
 
         // Count symbol frequencies
         CountingCoder *new_counting_coder = new CountingCoder(LZEncoder::NUM_CONTEXTS);
-        result.encode(LZEncoder(counting_coder, params.parity_context()));
+        result.encode(LZEncoder(counting_coder, parameters.parity_context()));
 
         // New size measurer based on frequencies
         CountingCoder *old_counting_coder = counting_coder;
@@ -83,7 +82,7 @@ void pack_data(unsigned char *data, int data_length, int zero_padding, const enc
     delete progress;
     delete counting_coder;
 
-    results[best_result].encode(LZEncoder(result_coder, params.parity_context()));
+    results[best_result].encode(LZEncoder(result_coder, parameters.parity_context()));
 }
 
 std::vector<unsigned char> compress(std::vector<unsigned char>& non_const_uncompressed_data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
