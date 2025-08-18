@@ -10,6 +10,9 @@
 
 #include <cstdio>
 #include <cstdlib>
+
+// Include Shrinkler's assert.h first, so that all subsequent files
+// see the same definition of assert()
 #include "assert.h"
 #include "CountingCoder.h"
 #include "LZDecoder.h"

@@ -19,11 +19,6 @@ namespace libshrinkler
 namespace
 {
 
-// TODO: if we redo pack_data, then we do not need this anymore, since pack_data can use encoder_parameters directly
-// TODO: If we do not need PackParams anymore, then we can also get rid of Pack.h
-//       * This means that we'll have to manually include many more shrinkler headers
-//       * When doing so, also pull in assert.h
-//         * That way we can also guarantee that everybody sees the same assert() macro, since we'll pull in assert.h as the vewry first thing
 // TODO: encoder_parameters: rename effort to match_patience?
 // TODO: encoder_parameters: rename same_length to max_same_length?
 
