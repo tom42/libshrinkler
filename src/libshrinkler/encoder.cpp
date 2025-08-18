@@ -45,7 +45,7 @@ void pack_data(unsigned char *data, int data_length, int zero_padding, const enc
     std::size_t best_result = 0;
     std::vector<LZParseResult> results(2);
     CountingCoder *counting_coder = new CountingCoder(LZEncoder::NUM_CONTEXTS);
-    LZProgress *progress = new no_progress(); // TODO: does this need to be on the heap?
+    no_progress progress;
 
     for (int i = 0 ; i < parameters.iterations() ; i++)
     {
@@ -54,7 +54,7 @@ void pack_data(unsigned char *data, int data_length, int zero_padding, const enc
         Coder *measurer = new SizeMeasuringCoder(counting_coder);
         measurer->setNumberContexts(LZEncoder::NUMBER_CONTEXT_OFFSET, LZEncoder::NUM_NUMBER_CONTEXTS, data_length);
         finder.reset();
-        result = parser.parse(LZEncoder(measurer, parameters.parity_context()), progress);
+        result = parser.parse(LZEncoder(measurer, parameters.parity_context()), &progress);
         delete measurer;
 
         // Encode result using adaptive range coding
@@ -82,7 +82,6 @@ void pack_data(unsigned char *data, int data_length, int zero_padding, const enc
         delete new_counting_coder;
     }
 
-    delete progress;
     delete counting_coder;
 
     results[best_result].encode(LZEncoder(&result_coder, parameters.parity_context()));
