@@ -24,18 +24,8 @@ namespace
 //       * This means that we'll have to manually include many more shrinkler headers
 //       * When doing so, also pull in assert.h
 //         * That way we can also guarantee that everybody sees the same assert() macro, since we'll pull in assert.h as the vewry first thing
-PackParams create_pack_params(const encoder_parameters& parameters)
-{
-    return
-    {
-        .parity_context = parameters.parity_context(),
-        .iterations = parameters.iterations(),
-        .length_margin = parameters.length_margin(),
-        .skip_length = parameters.skip_length(),
-        .match_patience = parameters.effort(), // TODO: rename effort to match_patience?
-        .max_same_length = parameters.same_length() // TODO: rename same_length to max_same_length?
-    };
-}
+// TODO: encoder_parameters: rename effort to match_patience?
+// TODO: encoder_parameters: rename same_length to max_same_length?
 
 // TODO: document what this is
 // TODO: reformat
@@ -93,7 +83,6 @@ void pack_data(unsigned char *data, int data_length, int zero_padding, const enc
 
 std::vector<unsigned char> compress(std::vector<unsigned char>& non_const_uncompressed_data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
 {
-    auto params = create_pack_params(parameters); // TODO: params => pack_params?
     vector<unsigned char> compressed_data;
     RangeCoder range_coder(LZEncoder::NUM_CONTEXTS + num_reloc_contexts, compressed_data);
 
