@@ -27,22 +27,14 @@ namespace
 // TODO: encoder_parameters: rename effort to match_patience?
 // TODO: encoder_parameters: rename same_length to max_same_length?
 
-
-// TODO: reformat
-// TODO: reformat
-// TODO: name: no_progress
-// TODO: review
-class NoProgress final : public LZProgress {
+class no_progress final : public LZProgress
+{
 public:
-    virtual void begin(int) override {
-        fflush(stdout); // TODO: do we need to call fflush here? What did the old implementation do?
-    }
+    virtual void begin(int) override {}
 
-    virtual void update(int) override {
-    }
+    virtual void update(int) override {}
 
-    virtual void end() override {
-    }
+    virtual void end() override {}
 };
 
 // TODO: document what this is
@@ -59,7 +51,7 @@ void pack_data(unsigned char *data, int data_length, int zero_padding, const enc
     std::size_t best_result = 0;
     std::vector<LZParseResult> results(2);
     CountingCoder *counting_coder = new CountingCoder(LZEncoder::NUM_CONTEXTS);
-    LZProgress *progress = new NoProgress(); // TODO: does this need to be on the heap?
+    LZProgress *progress = new no_progress(); // TODO: does this need to be on the heap?
 
     for (int i = 0 ; i < params.iterations() ; i++) {
         // Parse data into LZ symbols
