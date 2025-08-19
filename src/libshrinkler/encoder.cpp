@@ -51,12 +51,14 @@ void pack_data(unsigned char* data, int data_length, int zero_padding, const enc
     {
         // Parse data into LZ symbols
         LZParseResult& result = results[1 - best_result];
-        // TODO: this works, but now we somehow need to fix MSVC
-        // TODO: document this is for gcc with optimizations on?
+#ifdef LIBSHRINKLER_COMPILER_GNU
 #pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wnull-dereference"
+#pragma GCC diagnostic ignored "-Wnull-dereference" // Occurs with g++ and optimizations enabled
+#endif
         Coder* measurer = new SizeMeasuringCoder(counting_coder);
+#ifdef LIBSHRINKLER_COMPILER_GNU
 #pragma GCC diagnostic pop
+#endif
         measurer->setNumberContexts(LZEncoder::NUMBER_CONTEXT_OFFSET, LZEncoder::NUM_NUMBER_CONTEXTS, data_length);
         finder.reset();
         result = parser.parse(LZEncoder(measurer, parameters.parity_context()), &progress);
