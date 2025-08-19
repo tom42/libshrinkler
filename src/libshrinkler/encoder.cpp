@@ -19,9 +19,6 @@ namespace libshrinkler
 namespace
 {
 
-// TODO: encoder_parameters: rename effort to match_patience?
-// TODO: encoder_parameters: rename same_length to max_same_length?
-
 class no_progress final : public LZProgress
 {
 public:
