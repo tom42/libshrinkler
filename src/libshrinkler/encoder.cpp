@@ -96,8 +96,6 @@ std::vector<unsigned char> compress(std::vector<unsigned char>& non_const_uncomp
     vector<unsigned char> compressed_data;
     RangeCoder range_coder(LZEncoder::NUM_CONTEXTS + num_reloc_contexts, compressed_data);
 
-    // TODO: note: apparently packData uses printf. Teach it not to do this?
-    //             note: in the past we fixed this by reimplementing packData too
     // TODO: for starters, show_progress is hardcoded to be true. This needs to be an argument (or turned off)
 
     // Crunch the data
