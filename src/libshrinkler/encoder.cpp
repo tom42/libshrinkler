@@ -51,7 +51,12 @@ void pack_data(unsigned char *data, int data_length, int zero_padding, const enc
     {
         // Parse data into LZ symbols
         LZParseResult& result = results[1 - best_result];
+        // TODO: this works, but now we somehow need to fix MSVC
+        // TODO: document this is for gcc with optimizations on?
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wnull-dereference"
         Coder *measurer = new SizeMeasuringCoder(counting_coder);
+#pragma GCC diagnostic pop
         measurer->setNumberContexts(LZEncoder::NUMBER_CONTEXT_OFFSET, LZEncoder::NUM_NUMBER_CONTEXTS, data_length);
         finder.reset();
         result = parser.parse(LZEncoder(measurer, parameters.parity_context()), &progress);
