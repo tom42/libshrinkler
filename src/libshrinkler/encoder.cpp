@@ -30,7 +30,6 @@ public:
 };
 
 // TODO: document what this is
-// TODO: fix all warnings
 // TODO: remove heap allocations where appropriate
 // TODO: make instance member to reduce amount of parameter passing?
 void pack_data(unsigned char* data, int data_length, int zero_padding, const encoder_parameters& parameters, Coder& result_coder, RefEdgeFactory& edge_factory)
