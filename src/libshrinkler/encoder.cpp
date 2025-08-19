@@ -36,7 +36,7 @@ public:
 // TODO: fix all warnings
 // TODO: remove heap allocations where appropriate
 // TODO: make instance member to reduce amount of parameter passing?
-void pack_data(unsigned char *data, int data_length, int zero_padding, const encoder_parameters& parameters, Coder& result_coder, RefEdgeFactory& edge_factory)
+void pack_data(unsigned char* data, int data_length, int zero_padding, const encoder_parameters& parameters, Coder& result_coder, RefEdgeFactory& edge_factory)
 {
     MatchFinder finder(data, data_length, 2, parameters.effort(), parameters.same_length());
     LZParser parser(data, data_length, zero_padding, finder, parameters.length_margin(), parameters.skip_length(), &edge_factory);
@@ -44,7 +44,7 @@ void pack_data(unsigned char *data, int data_length, int zero_padding, const enc
     result_size_t best_size = result_size_t(1) << (32 + 3 + Coder::BIT_PRECISION);
     std::size_t best_result = 0;
     std::vector<LZParseResult> results(2);
-    CountingCoder *counting_coder = new CountingCoder(LZEncoder::NUM_CONTEXTS);
+    CountingCoder* counting_coder = new CountingCoder(LZEncoder::NUM_CONTEXTS);
     no_progress progress;
 
     for (int i = 0 ; i < parameters.iterations() ; i++)
@@ -55,7 +55,7 @@ void pack_data(unsigned char *data, int data_length, int zero_padding, const enc
         // TODO: document this is for gcc with optimizations on?
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wnull-dereference"
-        Coder *measurer = new SizeMeasuringCoder(counting_coder);
+        Coder* measurer = new SizeMeasuringCoder(counting_coder);
 #pragma GCC diagnostic pop
         measurer->setNumberContexts(LZEncoder::NUMBER_CONTEXT_OFFSET, LZEncoder::NUM_NUMBER_CONTEXTS, data_length);
         finder.reset();
@@ -64,7 +64,7 @@ void pack_data(unsigned char *data, int data_length, int zero_padding, const enc
 
         // Encode result using adaptive range coding
         vector<unsigned char> dummy_result;
-        RangeCoder *range_coder = new RangeCoder(LZEncoder::NUM_CONTEXTS, dummy_result);
+        RangeCoder* range_coder = new RangeCoder(LZEncoder::NUM_CONTEXTS, dummy_result);
         real_size = result.encode(LZEncoder(range_coder, parameters.parity_context()));
         range_coder->finish();
         delete range_coder;
@@ -77,11 +77,11 @@ void pack_data(unsigned char *data, int data_length, int zero_padding, const enc
         }
 
         // Count symbol frequencies
-        CountingCoder *new_counting_coder = new CountingCoder(LZEncoder::NUM_CONTEXTS);
+        CountingCoder* new_counting_coder = new CountingCoder(LZEncoder::NUM_CONTEXTS);
         result.encode(LZEncoder(counting_coder, parameters.parity_context()));
 
         // New size measurer based on frequencies
-        CountingCoder *old_counting_coder = counting_coder;
+        CountingCoder* old_counting_coder = counting_coder;
         counting_coder = new CountingCoder(old_counting_coder, new_counting_coder);
         delete old_counting_coder;
         delete new_counting_coder;
