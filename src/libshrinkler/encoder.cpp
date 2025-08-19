@@ -95,8 +95,6 @@ std::vector<unsigned char> compress(std::vector<unsigned char>& non_const_uncomp
     vector<unsigned char> compressed_data;
     RangeCoder range_coder(LZEncoder::NUM_CONTEXTS + num_reloc_contexts, compressed_data);
 
-    // TODO: for starters, show_progress is hardcoded to be true. This needs to be an argument (or turned off)
-
     // Crunch the data
     range_coder.reset();
     pack_data(non_const_uncompressed_data.data(), int_cast(non_const_uncompressed_data.size()), 0, parameters, range_coder, edge_factory);
