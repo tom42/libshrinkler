@@ -108,7 +108,6 @@ void verify(byte_vector& compressed_data, byte_vector& uncompressed_data, const 
     LZDecoder lzd(&decoder, parameters.parity_context());
 
     // Verify data
-    // TODO: well yes, do so. Base it on shrinkler code, but incorporate our own improvements/modifications
     LZVerifier verifier(0, uncompressed_data.data(), int_cast(uncompressed_data.size()), int_cast(uncompressed_data.size()), 1);
     decoder.reset();
     decoder.setListener(&verifier);
