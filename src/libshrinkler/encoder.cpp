@@ -120,7 +120,7 @@ void verify(byte_vector& compressed_data, byte_vector& uncompressed_data, const 
         throw internal_error("verify error: verification of compressed data failed");
     }
 
-    if (verifier.size() != uncompressed_data.size())
+    if (verifier.size() != int_cast(uncompressed_data.size()))
     {
         throw internal_error(std::format("verify error: decompressed data has incorrect length ({}, should have been {})", verifier.size(), uncompressed_data.size()));
     }
