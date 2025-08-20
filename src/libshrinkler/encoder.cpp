@@ -30,8 +30,7 @@ public:
 };
 
 // TODO: document what this is
-// TODO: remove heap allocations where appropriate
-// TODO: make instance member to reduce amount of parameter passing?
+// TODO: make instance member to reduce amount of parameter passing? (do so generally in this file?)
 void pack_data(unsigned char* data, int data_length, int zero_padding, const encoder_parameters& parameters, Coder& result_coder, RefEdgeFactory& edge_factory)
 {
     MatchFinder finder(data, data_length, 2, parameters.effort(), parameters.same_length());
