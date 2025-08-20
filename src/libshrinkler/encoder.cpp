@@ -120,6 +120,7 @@ void verify(byte_vector& compressed_data, byte_vector& uncompressed_data, const 
         throw internal_error("verify error: verification of compressed data failed");
     }
 
+    // Check length
     if (verifier.size() != int_cast(uncompressed_data.size()))
     {
         throw internal_error(std::format("verify error: decompressed data has incorrect length ({}, should have been {})", verifier.size(), uncompressed_data.size()));
@@ -148,17 +149,6 @@ void verify(byte_vector& compressed_data, byte_vector& uncompressed_data, const 
      */
     // TODO: for reference below is also what we earlier did
     /*
-    if (!lzd.decode(verifier))
-    {
-        throw runtime_error("INTERNAL ERROR: could not verify decompressed data");
-    }
-
-    // Check length
-    if (numeric_cast<size_t>(verifier.size()) != data.size())
-    {
-        throw runtime_error(std::format("INTERNAL ERROR: decompressed data has incorrect length ({}, should have been {})", verifier.size(), data.size()));
-    }
-
     return verifier.front_overlap_margin + pack_buffer.size() * 4 - data.size(); // TODO: note that the *4 is because in older version of shrinkler, pack_buffer contained 32 bit elements
      */
 }
