@@ -21,8 +21,8 @@ namespace libshrinkler
 class internal_error final : public std::logic_error
 {
 public:
-    explicit internal_error(const char* message)
-        : std::logic_error(std::string("libshrinkler: internal error: ") + message)
+    explicit internal_error(const std::string& message)
+        : std::logic_error("libshrinkler: internal error: " + message)
     {}
 };
 
