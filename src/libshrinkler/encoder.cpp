@@ -103,11 +103,10 @@ byte_vector compress(byte_vector& non_const_uncompressed_data, const encoder_par
     return compressed_data;
 }
 
-// TODO: pack_buffer => compressed_data? (everywhere)
 // TODO: data => uncompressed_data?
-void verify(byte_vector& pack_buffer, byte_vector& data, const encoder_parameters& parameters)
+void verify(byte_vector& compressed_data, byte_vector& data, const encoder_parameters& parameters)
 {
-    RangeDecoder decoder(LZEncoder::NUM_CONTEXTS + num_reloc_contexts, pack_buffer);
+    RangeDecoder decoder(LZEncoder::NUM_CONTEXTS + num_reloc_contexts, compressed_data);
     LZDecoder lzd(&decoder, parameters.parity_context());
 
     // Verify data
