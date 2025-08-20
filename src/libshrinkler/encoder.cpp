@@ -31,7 +31,6 @@ public:
 };
 
 // TODO: document what this is
-// TODO: make instance member to reduce amount of parameter passing? (do so generally in this file?)
 void pack_data(unsigned char* uncompressed_data, int data_length, int zero_padding, const encoder_parameters& parameters, Coder& result_coder, RefEdgeFactory& edge_factory)
 {
     MatchFinder finder(uncompressed_data, data_length, 2, parameters.effort(), parameters.same_length());
@@ -170,9 +169,9 @@ byte_vector encoder::encode(const byte_vector& uncompressed_data) const
     auto non_const_uncompressed_data = uncompressed_data;
 
     RefEdgeFactory edge_factory(m_parameters.references());
-    auto compressed_data = compress(non_const_uncompressed_data, m_parameters, edge_factory); // TODO: consider making crunch a member, so less parameter passing?
+    auto compressed_data = compress(non_const_uncompressed_data, m_parameters, edge_factory);
 
-    verify(compressed_data, non_const_uncompressed_data, m_parameters); // TODO: here too: could be a member, for less parameter passing, no?
+    verify(compressed_data, non_const_uncompressed_data, m_parameters);
 
     if (m_parameters.endianness() == endianness::little)
     {
