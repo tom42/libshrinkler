@@ -1,8 +1,9 @@
+// SPDX-FileCopyrightText: 1999-present Aske Simon Christensen
 // SPDX-FileCopyrightText: 2025 Thomas Mathys
-// SPDX-License-Identifier: MIT
-
-// TODO: in the old implementation, we used the shrinkler license for this file since it's mostly shrinkler code
-//       consider doing this again. Much less problematic that way.
+// SPDX-License-Identifier: LicenseRef-Shrinkler
+//
+// This file contains mostly slightly adapted code from Shrinkler,
+// so it's licensed under the Shrinkler license.
 
 module;
 
