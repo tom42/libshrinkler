@@ -32,10 +32,10 @@ public:
 
 // TODO: document what this is
 // TODO: make instance member to reduce amount of parameter passing? (do so generally in this file?)
-void pack_data(unsigned char* data, int data_length, int zero_padding, const encoder_parameters& parameters, Coder& result_coder, RefEdgeFactory& edge_factory)
+void pack_data(unsigned char* uncompressed_data, int data_length, int zero_padding, const encoder_parameters& parameters, Coder& result_coder, RefEdgeFactory& edge_factory)
 {
-    MatchFinder finder(data, data_length, 2, parameters.effort(), parameters.same_length());
-    LZParser parser(data, data_length, zero_padding, finder, parameters.length_margin(), parameters.skip_length(), &edge_factory);
+    MatchFinder finder(uncompressed_data, data_length, 2, parameters.effort(), parameters.same_length());
+    LZParser parser(uncompressed_data, data_length, zero_padding, finder, parameters.length_margin(), parameters.skip_length(), &edge_factory);
     result_size_t real_size = 0;
     result_size_t best_size = result_size_t(1) << (32 + 3 + Coder::BIT_PRECISION);
     std::size_t best_result = 0;
@@ -103,15 +103,14 @@ byte_vector compress(byte_vector& non_const_uncompressed_data, const encoder_par
     return compressed_data;
 }
 
-// TODO: data => uncompressed_data?
-void verify(byte_vector& compressed_data, byte_vector& data, const encoder_parameters& parameters)
+void verify(byte_vector& compressed_data, byte_vector& uncompressed_data, const encoder_parameters& parameters)
 {
     RangeDecoder decoder(LZEncoder::NUM_CONTEXTS + num_reloc_contexts, compressed_data);
     LZDecoder lzd(&decoder, parameters.parity_context());
 
     // Verify data
     // TODO: well yes, do so. Base it on shrinkler code, but incorporate our own improvements/modifications
-    LZVerifier verifier(0, data.data(), int_cast(data.size()), int_cast(data.size()), 1);
+    LZVerifier verifier(0, uncompressed_data.data(), int_cast(uncompressed_data.size()), int_cast(uncompressed_data.size()), 1);
     decoder.reset();
     decoder.setListener(&verifier);
     if (!lzd.decode(verifier))
@@ -164,7 +163,6 @@ void encoder::parameters(const encoder_parameters& parameters)
     m_parameters = parameters;
 }
 
-// TODO: "data" => uncompressed_data (everyhwere in this file)
 byte_vector encoder::encode(const byte_vector& uncompressed_data) const
 {
     // Shrinkler code uses non-const buffers all over the place, but does not modify them.
