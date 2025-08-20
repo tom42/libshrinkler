@@ -8,6 +8,7 @@
 module;
 
 #include <cstddef>
+#include <format>
 #include <vector>
 #include "shrinkler_headers.hpp"
 
@@ -117,6 +118,11 @@ void verify(byte_vector& compressed_data, byte_vector& uncompressed_data, const 
     if (!lzd.decode(verifier))
     {
         throw internal_error("verify error: verification of compressed data failed");
+    }
+
+    if (verifier.size() != uncompressed_data.size())
+    {
+        throw internal_error(std::format("verify error: decompressed data has incorrect length ({}, should have been {})", verifier.size(), uncompressed_data.size()));
     }
 
     // TODO: verify (reference code from shrinkler below)
