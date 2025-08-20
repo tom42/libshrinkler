@@ -31,7 +31,7 @@ public:
     virtual void end() override {}
 };
 
-// TODO: document what this is
+// packData() from Pack.h
 void pack_data(unsigned char* uncompressed_data, int data_length, int zero_padding, const encoder_parameters& parameters, Coder& result_coder, RefEdgeFactory& edge_factory)
 {
     MatchFinder finder(uncompressed_data, data_length, 2, parameters.effort(), parameters.same_length());
@@ -90,6 +90,7 @@ void pack_data(unsigned char* uncompressed_data, int data_length, int zero_paddi
     results[best_result].encode(LZEncoder(&result_coder, parameters.parity_context()));
 }
 
+// DataFile::compress() from DataFile.h
 byte_vector compress(byte_vector& non_const_uncompressed_data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
 {
     byte_vector compressed_data;
@@ -103,6 +104,7 @@ byte_vector compress(byte_vector& non_const_uncompressed_data, const encoder_par
     return compressed_data;
 }
 
+// DataFile::verify() from DataFile.h
 void verify(byte_vector& compressed_data, byte_vector& uncompressed_data, const encoder_parameters& parameters)
 {
     RangeDecoder decoder(LZEncoder::NUM_CONTEXTS + num_reloc_contexts, compressed_data);
@@ -162,6 +164,7 @@ void encoder::parameters(const encoder_parameters& parameters)
     m_parameters = parameters;
 }
 
+// Data file compression from main2 in Shrinkler.cpp
 byte_vector encoder::encode(const byte_vector& uncompressed_data) const
 {
     // Shrinkler code uses non-const buffers all over the place, but does not modify them.
