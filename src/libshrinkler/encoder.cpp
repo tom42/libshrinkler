@@ -3,7 +3,6 @@
 
 // TODO: in the old implementation, we used the shrinkler license for this file since it's mostly shrinkler code
 //       consider doing this again. Much less problematic that way.
-// TODO: replace vector<unsigned char> by an alias
 
 module;
 
@@ -18,6 +17,8 @@ namespace libshrinkler
 
 namespace
 {
+
+using byte_vector = std::vector<unsigned char>;
 
 class no_progress final : public LZProgress
 {
@@ -60,7 +61,7 @@ void pack_data(unsigned char* data, int data_length, int zero_padding, const enc
         delete measurer;
 
         // Encode result using adaptive range coding
-        vector<unsigned char> dummy_result;
+        byte_vector dummy_result;
         RangeCoder* range_coder = new RangeCoder(LZEncoder::NUM_CONTEXTS, dummy_result);
         real_size = result.encode(LZEncoder(range_coder, parameters.parity_context()));
         range_coder->finish();
@@ -89,9 +90,9 @@ void pack_data(unsigned char* data, int data_length, int zero_padding, const enc
     results[best_result].encode(LZEncoder(&result_coder, parameters.parity_context()));
 }
 
-std::vector<unsigned char> compress(std::vector<unsigned char>& non_const_uncompressed_data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
+byte_vector compress(byte_vector& non_const_uncompressed_data, const encoder_parameters& parameters, RefEdgeFactory& edge_factory)
 {
-    vector<unsigned char> compressed_data;
+    byte_vector compressed_data;
     RangeCoder range_coder(LZEncoder::NUM_CONTEXTS + num_reloc_contexts, compressed_data);
 
     // Crunch the data
@@ -104,7 +105,7 @@ std::vector<unsigned char> compress(std::vector<unsigned char>& non_const_uncomp
 
 // TODO: pack_buffer => compressed_data? (everywhere)
 // TODO: data => uncompressed_data?
-void verify(std::vector<unsigned char>& pack_buffer, std::vector<unsigned char>& data, const encoder_parameters& parameters)
+void verify(byte_vector& pack_buffer, byte_vector& data, const encoder_parameters& parameters)
 {
     RangeDecoder decoder(LZEncoder::NUM_CONTEXTS + num_reloc_contexts, pack_buffer);
     LZDecoder lzd(&decoder, parameters.parity_context());
@@ -123,7 +124,7 @@ void verify(std::vector<unsigned char>& pack_buffer, std::vector<unsigned char>&
     //       * (what about the return value?)
     //       * And what about comparison with original data? Or is this done by the verifier?
     /*
-    int verify(PackParams *params, vector<unsigned char>& pack_buffer) {
+    int verify(PackParams *params, byte_vector& pack_buffer) {
 
         // Check length
         if (!error && verifier.size() != data.size()) {
@@ -165,7 +166,7 @@ void encoder::parameters(const encoder_parameters& parameters)
 }
 
 // TODO: "data" => uncompressed_data (everyhwere in this file)
-std::vector<unsigned char> encoder::encode(const std::vector<unsigned char>& uncompressed_data) const
+byte_vector encoder::encode(const byte_vector& uncompressed_data) const
 {
     // Shrinkler code uses non-const buffers all over the place, but does not modify them.
     // Still we specify 'const' to callers, so we create a non-const copy of the original data.
