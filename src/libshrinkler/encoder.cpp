@@ -116,7 +116,7 @@ void verify(byte_vector& compressed_data, byte_vector& uncompressed_data, const 
     decoder.setListener(&verifier);
     if (!lzd.decode(verifier))
     {
-        throw internal_error("verification of compressed data failed");
+        throw internal_error("verify error: verification of compressed data failed");
     }
 
     // TODO: verify (reference code from shrinkler below)
