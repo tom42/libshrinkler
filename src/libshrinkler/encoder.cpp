@@ -135,8 +135,14 @@ void encoder::parameters(const encoder_parameters& parameters)
     m_parameters = parameters;
 }
 
-// Data file compression from main2 in Shrinkler.cpp
 byte_vector encoder::encode(const byte_vector& uncompressed_data) const
+{
+    compression_info unused;
+    return encode(uncompressed_data, unused);
+}
+
+// Data file compression from main2 in Shrinkler.cpp
+byte_vector encoder::encode(const byte_vector& uncompressed_data, compression_info& compression_info) const
 {
     // Shrinkler code uses non-const buffers all over the place, but does not modify them.
     // Still we specify 'const' to callers, so we create a non-const copy of the original data.
@@ -152,22 +158,11 @@ byte_vector encoder::encode(const byte_vector& uncompressed_data) const
         swap_endianness(compressed_data);
     }
 
+    compression_info.considered_references = edge_factory.max_edge_count;
+    compression_info.discarded_references = edge_factory.max_cleaned_edges;
+    compression_info.increase_reference_buffer_hint = edge_factory.max_edge_count > m_parameters.references();
+
     return compressed_data;
-    // TODO: prepare some result structure which can be used to return all sorts of data
-    //       * References considered
-    //       * References discarded
-    //       * That hint to use a larger reference buffer
-    //       * Safety margin thing => omit, we don't need this (it's returned by verify())
-    /*
-    if (data.seen) {
-
-        if (edge_factory.max_edge_count > references.value) {
-            printf("Note: compression may benefit from a larger reference buffer (-r option).\n\n");
-        }
-
-        return 0;
-    }
-    */
 }
 
 }

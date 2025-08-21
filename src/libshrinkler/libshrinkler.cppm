@@ -107,6 +107,8 @@ public:
 
     std::vector<unsigned char> encode(const std::vector<unsigned char>& data) const;
 
+    std::vector<unsigned char> encode(const std::vector<unsigned char>& data, compression_info& compression_info) const;
+
 private:
     encoder_parameters m_parameters;
 };
