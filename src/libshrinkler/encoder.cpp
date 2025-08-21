@@ -106,6 +106,7 @@ byte_vector compress(byte_vector& non_const_uncompressed_data, const encoder_par
 }
 
 // DataFile::verify() from DataFile.h
+// Safety margin calculation omitted, since we currently don't need that value.
 void verify(byte_vector& compressed_data, byte_vector& uncompressed_data, const encoder_parameters& parameters)
 {
     RangeDecoder decoder(LZEncoder::NUM_CONTEXTS + num_reloc_contexts, compressed_data);
@@ -125,32 +126,6 @@ void verify(byte_vector& compressed_data, byte_vector& uncompressed_data, const 
     {
         throw internal_error(std::format("verify error: decompressed data has incorrect length ({}, should have been {})", verifier.size(), uncompressed_data.size()));
     }
-
-    // TODO: verify (reference code from shrinkler below)
-    //       * (what about the return value?)
-    //       * And what about comparison with original data? Or is this done by the verifier?
-    /*
-    int verify(PackParams *params, byte_vector& pack_buffer) {
-
-        // Check length
-        if (!error && verifier.size() != data.size()) {
-            printf("Verify error: data has incorrect length (%d, should have been %d)!\n", verifier.size(), (int) data.size());
-            error = true;
-        }
-
-        if (error) {
-            internal_error();
-        }
-
-        printf("OK\n\n");
-
-        return verifier.front_overlap_margin + pack_buffer.size() - data.size();
-    }
-     */
-    // TODO: for reference below is also what we earlier did
-    /*
-    return verifier.front_overlap_margin + pack_buffer.size() * 4 - data.size(); // TODO: note that the *4 is because in older version of shrinkler, pack_buffer contained 32 bit elements
-     */
 }
 
 }
@@ -181,7 +156,7 @@ byte_vector encoder::encode(const byte_vector& uncompressed_data) const
     //       * References considered
     //       * References discarded
     //       * That hint to use a larger reference buffer
-    //       * Safety margin thing
+    //       * Safety margin thing => omit, we don't need this (it's returned by verify())
 
     return compressed_data;
 
