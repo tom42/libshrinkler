@@ -5,17 +5,10 @@ SPDX-License-Identifier: MIT
 
 # TODO
 * Start writing a wrapper around the data packer
+  * When integrating into shrinkler-gba: remember that default endianness is big. For GBA we need to set it to little!
   * When removing shrinker and shrinklerwrapper from shrinkler-gba:
     * Carefully review what we're deleting. For instance there is some documentation scraped off of ada.untergrund.net which explains
       the decompressor a bit and which I'd like to keep.
-  * Expose all options
-    * Add new ones
-      * Little/big endianness?
-      * Such as the parity thing?
-      * And what about the header? With/without header could be an option too, no?
-    * What about logging? We're a library and should not log ourselves
-    * What about results? (Compressed data, skip length thing)
-  * For starters, running in memory is fine, respectively same interface as agbpack?
   * Need to figure out relatively early whether our old depacker code can cope with
     shrinkler 4.7 output
     * Can we not simply use our standard test file (lostmarbles?)
@@ -27,7 +20,6 @@ SPDX-License-Identifier: MIT
             pad the file this will have no effect on *our* output size: in order to swap the
             endianness we have to add these zeroes again, since in our case they will *not*
             be at the end of the file
-  * Obviously write tests. Once we have a real test, remove testthetest
 * Choose license
   * Shrinkler-license for shrinkler code
   * MIT for our code? Or shrinkler for everything? Is probably simpler since we probably need to modify shrinkler code
