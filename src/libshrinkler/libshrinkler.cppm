@@ -92,6 +92,14 @@ private:
     libshrinkler::endianness m_endianness = endianness::big;
 };
 
+export class compression_info
+{
+public:
+    int considered_references = 0;
+    int discarded_references = 0;
+    bool increase_reference_buffer_hint = false;
+};
+
 export class encoder final
 {
 public:
