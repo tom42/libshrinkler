@@ -152,17 +152,12 @@ byte_vector encoder::encode(const byte_vector& uncompressed_data) const
         swap_endianness(compressed_data);
     }
 
+    return compressed_data;
     // TODO: prepare some result structure which can be used to return all sorts of data
     //       * References considered
     //       * References discarded
     //       * That hint to use a larger reference buffer
     //       * Safety margin thing => omit, we don't need this (it's returned by verify())
-
-    return compressed_data;
-
-    // TODO: need to patch DataFile, such that it does not
-    //       * Call exit
-    //       * Do console I/O
     /*
     if (data.seen) {
 
@@ -172,7 +167,7 @@ byte_vector encoder::encode(const byte_vector& uncompressed_data) const
 
         return 0;
     }
-     */
+    */
 }
 
 }
