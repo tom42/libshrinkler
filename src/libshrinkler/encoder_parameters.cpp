@@ -33,9 +33,9 @@ bool is_valid(endianness e)
         case endianness::big:
         case endianness::little:
             return true;
-        default:
-            return false;
     }
+
+    return false;
 }
 
 }
