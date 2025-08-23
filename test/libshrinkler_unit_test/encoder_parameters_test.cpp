@@ -2,6 +2,9 @@
 // SPDX-License-Identifier: MIT
 
 #include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers.hpp>
+#include <catch2/matchers/catch_matchers_exception.hpp>
+#include <stdexcept>
 
 import libshrinkler;
 
@@ -39,6 +42,22 @@ TEST_CASE("encoder_parameters_test")
         CHECK(parameters.skip_length() == 9000);
         CHECK(parameters.references() == 100000);
         CHECK(parameters.endianness() == endianness::big);
+    }
+
+    SECTION("set endianness")
+    {
+        encoder_parameters parameters;
+
+        parameters.endianness(endianness::little);
+        CHECK(parameters.endianness() == endianness::little);
+
+        parameters.endianness(endianness::big);
+        CHECK(parameters.endianness() == endianness::big);
+
+        CHECK_THROWS_MATCHES(
+            parameters.endianness(endianness(-1)),
+            std::invalid_argument,
+            Catch::Matchers::Message("invalid endianness"));
     }
 }
 

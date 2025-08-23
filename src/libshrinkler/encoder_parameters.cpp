@@ -7,6 +7,9 @@ module;
 
 module libshrinkler;
 
+namespace libshrinkler
+{
+
 namespace
 {
 
@@ -23,10 +26,19 @@ void throw_if_out_of_range(int value, int min, int max, const char* what)
     }
 }
 
+bool is_valid(endianness e)
+{
+    switch (e)
+    {
+        case endianness::big:
+        case endianness::little:
+            return true;
+        default:
+            return false;
+    }
 }
 
-namespace libshrinkler
-{
+}
 
 encoder_parameters::encoder_parameters(int preset)
 {
@@ -87,7 +99,11 @@ void encoder_parameters::skip_length(int skip_length)
 
 void encoder_parameters::endianness(libshrinkler::endianness endianness)
 {
-    // TODO: validate?
+    if (!is_valid(endianness))
+    {
+        throw std::invalid_argument("invalid endianness");
+    }
+
     m_endianness = endianness;
 }
 
