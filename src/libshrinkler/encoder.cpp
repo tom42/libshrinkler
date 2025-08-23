@@ -9,6 +9,7 @@ module;
 
 #include <cstddef>
 #include <format>
+#include <stdexcept>
 #include <vector>
 #include "shrinkler_headers.hpp"
 
@@ -144,6 +145,11 @@ byte_vector encoder::encode(const byte_vector& uncompressed_data) const
 // Data file compression from main2 in Shrinkler.cpp
 byte_vector encoder::encode(const byte_vector& uncompressed_data, compression_info& compression_info) const
 {
+    if (uncompressed_data.size() == 0)
+    {
+        throw std::invalid_argument("cannot compress input of size 0");
+    }
+
     // Shrinkler code uses non-const buffers all over the place, but does not modify them.
     // Still we specify 'const' to callers, so we create a non-const copy of the original data.
     auto non_const_uncompressed_data = uncompressed_data;

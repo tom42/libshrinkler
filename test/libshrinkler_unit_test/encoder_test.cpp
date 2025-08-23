@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: MIT
 
 #include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers.hpp>
+#include <catch2/matchers/catch_matchers_exception.hpp>
 #include <vector>
 #include <cstring>
 
@@ -43,23 +45,13 @@ TEST_CASE("encoder_test")
         CHECK(actual_encoded_data == expected_encoded_data);
     }
 
-    /*
-    SECTION("parity, big endian, empty input")
+    SECTION("empty input")
     {
-        // TODO: shrinkler iself cannot handle that
-        //       * Update production code to throw in this case
-        //       * Ensure test catches this
-        const auto original_data = make_byte_vector("");
-        const byte_vector expected_encoded_data{0x70};
-        parameters.parity_context(true);
-        parameters.endianness(endianness::big);
-        encoder.parameters(parameters);
-
-        auto actual_encoded_data = encoder.encode(original_data);
-
-        CHECK(actual_encoded_data == expected_encoded_data);
+        CHECK_THROWS_MATCHES(
+            encoder.encode(make_byte_vector("")),
+            std::invalid_argument,
+            Catch::Matchers::Message("cannot compress input of size 0"));
     }
-    */
 
     SECTION("parity, little endian")
     {
