@@ -22,7 +22,7 @@ void throw_if_out_of_range(int value, int min, int max, const char* what)
 {
     if (!is_in_range(value, min, max))
     {
-        throw std::out_of_range(what);
+        throw std::invalid_argument(what);
     }
 }
 
