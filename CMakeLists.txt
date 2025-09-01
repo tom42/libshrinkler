@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.31.5)
-project(libshrinkler VERSION 0.0.1 LANGUAGES CXX)
+project(libshrinkler VERSION 1.0.0 LANGUAGES CXX)
 list(INSERT CMAKE_MODULE_PATH 0 "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
 
