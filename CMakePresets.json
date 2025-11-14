@@ -38,8 +38,15 @@
       }
     },
     {
-      "name": "dev-windows-default",
+      "name": "dev-windows",
       "inherits": "dev-base"
+    },
+    {
+      "name": "dev-windows-vcpkg",
+      "inherits": "dev-windows",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+      }
     }
   ]
 }
