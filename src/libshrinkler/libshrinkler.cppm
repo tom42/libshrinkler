@@ -13,28 +13,28 @@ export import :util;
 namespace libshrinkler
 {
 
-inline constexpr int min_preset = 1;
-inline constexpr int max_preset = 9;
-inline constexpr int default_preset = 3;
+export inline constexpr int min_preset = 1;
+export inline constexpr int max_preset = 9;
+export inline constexpr int default_preset = 3;
 
-inline constexpr int min_references = 1000;
-inline constexpr int max_references = 100000000;
-inline constexpr int default_references = 100000;
+export inline constexpr int min_references = 1000;
+export inline constexpr int max_references = 100000000;
+export inline constexpr int default_references = 100000;
 
-inline constexpr int min_iterations = 1;
-inline constexpr int max_iterations = 9;
+export inline constexpr int min_iterations = 1;
+export inline constexpr int max_iterations = 9;
 
-inline constexpr int min_length_margin = 0;
-inline constexpr int max_length_margin = 100;
+export inline constexpr int min_length_margin = 0;
+export inline constexpr int max_length_margin = 100;
 
-inline constexpr int min_same_length = 1;
-inline constexpr int max_same_length = 100000;
+export inline constexpr int min_same_length = 1;
+export inline constexpr int max_same_length = 100000;
 
-inline constexpr int min_effort = 0;
-inline constexpr int max_effort = 100000;
+export inline constexpr int min_effort = 0;
+export inline constexpr int max_effort = 100000;
 
-inline constexpr int min_skip_length = 2;
-inline constexpr int max_skip_length = 100000;
+export inline constexpr int min_skip_length = 2;
+export inline constexpr int max_skip_length = 100000;
 
 export enum class endianness
 {
